@@ -1,12 +1,14 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityServer4.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Host.Models;
+using IdentityServer4.Services;
+using IdentityServer4.Quickstart.UI;
 
-namespace IdentityServer4.Quickstart.UI
+namespace Host.Controllers
 {
     [SecurityHeaders]
     public class HomeController : Controller
@@ -18,10 +20,24 @@ namespace IdentityServer4.Quickstart.UI
             _interaction = interaction;
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            ViewData["Message"] = "Your application description page.";
+
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            ViewData["Message"] = "Your contact page.";
+
+            return View();
+        }
 
         /// <summary>
         /// Shows the error page

@@ -16,6 +16,10 @@ using IdentityServer4.Models;
 using Auth.Configuration;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.EntityFramework.DbContexts;
+using Data.Db;
+using Data.Model;
+using Microsoft.AspNetCore.Identity;
+using Host.Services;
 
 namespace Auth
 {
@@ -32,17 +36,27 @@ namespace Auth
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<IEmailSender, EmailSender>();
 
+
+            var databaseCS = Configuration[Constants.DatabaseConnectionString];
             var operationCS = Configuration[Constants.AuthOperationConnectionString];
             var configurationCS = Configuration[Constants.AuthConfigurationConnectionString];
 
+            services.AddDbContext<GymOrganizerContext>( options => options.UseSqlServer(databaseCS));
+
+
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<GymOrganizerContext>()
+                .AddDefaultTokenProviders()
+                .AddIdentityServer();
 
 
             services.AddIdentityServer()
                 //To be validated
-                .AddDeveloperSigningCredential()
-                .AddTestUsers(TestUsers.Users)
+                .AddDeveloperSigningCredential()                
 
                 .AddConfigurationStore(options =>
                 {
@@ -58,9 +72,13 @@ namespace Auth
                     // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
-                });
+                })
+                .AddAspNetIdentity<User>(); //TODO: fix this
+
 
             EnsureSeedData(services);
+            EnsureDbCreation(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +107,17 @@ namespace Auth
             });
         }
 
-
+        private static void EnsureDbCreation(IServiceCollection services)
+        {
+            var sp = services.BuildServiceProvider();
+            using (var scope = sp.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var context = scope.ServiceProvider.GetService<GymOrganizerContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
+        }
 
         private static void EnsureSeedData(IServiceCollection services)
         {
