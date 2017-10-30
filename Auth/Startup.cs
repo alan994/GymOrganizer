@@ -85,6 +85,8 @@ namespace Auth
                 })
                 .AddAspNetIdentity<User>(); //TODO: fix this
 
+            services.AddCors();
+
 
             EnsureSeedData(services);
             EnsureDbCreation(services);
@@ -106,6 +108,14 @@ namespace Auth
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            app.UseCors(builder => builder
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyOrigin()
+                .AllowCredentials()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+            );
 
             app.UseIdentityServer();
 

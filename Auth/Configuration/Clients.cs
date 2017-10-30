@@ -43,7 +43,7 @@ namespace Auth.Configuration
                 new Client
                 {
                     ClientId = "spa",
-                    ClientName = "JavaScript OIDC Client",
+                    ClientName = "Angular2 client application",
                     ClientUri = "http://identityserver.io",
                     LogoUri = "https://pbs.twimg.com/profile_images/1612989113/Ki-hanja_400x400.png",
 
@@ -54,13 +54,11 @@ namespace Auth.Configuration
 
                     RedirectUris =
                     {
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/popup.html",
-                        "http://localhost:5002/silent.html"
+                        "http://localhost:4200/home"
                     },
 
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                    PostLogoutRedirectUris = { "http://localhost:4200" },
+                    AllowedCorsOrigins = { "http://localhost:5002", "http://localhost:4200" },
 
                     AllowedScopes =
                     {

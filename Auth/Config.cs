@@ -16,13 +16,11 @@ namespace Auth
                 AllowedGrantTypes = GrantTypes.Implicit,
                 AllowAccessTokensViaBrowser = true,
                 RedirectUris = {
-                    "http://localhost:5002/callback.html",
-                    "http://localhost:5002/popup.html",
-                    "http://localhost:5002/silent.html"
+                    "http://localhost:4200/home"                    
                 },
-                PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
+                PostLogoutRedirectUris = { "http://localhost:4200" },
                 AllowedScopes = { "openid", "profile", "email", "api1" },
-                AllowedCorsOrigins = { "http://localhost:5002" }
+                AllowedCorsOrigins = { "http://localhost:5002", "http://localhost:4200" }
             },
         };
 
