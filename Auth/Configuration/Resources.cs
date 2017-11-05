@@ -24,17 +24,9 @@ namespace Auth.Configuration
         {
             return new[]
             {
-                // simple version with ctor
-                new ApiResource("api1", "Some API 1")
-                {
-                    // this is needed for introspection when using reference tokens
-                    ApiSecrets = { new Secret("secret".Sha256()) }
-                },
-                
-                // expanded version if more control is needed
                 new ApiResource
                 {
-                    Name = "api2",
+                    Name = "api",
 
                     ApiSecrets =
                     {
@@ -51,13 +43,8 @@ namespace Auth.Configuration
                     {
                         new Scope()
                         {
-                            Name = "api2.full_access",
-                            DisplayName = "Full access to API 2"
-                        },
-                        new Scope
-                        {
-                            Name = "api2.read_only",
-                            DisplayName = "Read only access to API 2"
+                            Name = "api.fullAccess",
+                            DisplayName = "Full access to API"
                         }
                     }
                 }

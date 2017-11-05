@@ -1,10 +1,13 @@
 import { ActionReducerMap } from '@ngrx/store';
-import * as fromLocation from '../locations/store/location.reducers';
+import * as fromNotifications from './notifications/notification.reducers';
+import * as fromAccount from './account/account.reducers';
 
 export interface AppState {
-    locationState: fromLocation.State;
+	notificationState: fromNotifications.State;
+	accountState: fromAccount.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-    locationState: fromLocation.locationReducer
+	notificationState: fromNotifications.notificationReducer,
+	accountState: fromAccount.bookReducer
 };

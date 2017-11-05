@@ -1,0 +1,11 @@
+<html>
+	
+	<body>
+		<script>
+			console.log("Silent refresh happened: ", location);
+			parent.postMessage(location.hash, location.origin);
+			console.log("After post message");
+		</script>
+	</body>
+	
+	</html>

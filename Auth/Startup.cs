@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using IdentityServer4.Quickstart.UI;
 using Helper.Configuration;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.Interfaces;
-using IdentityServer4.Models;
 using Auth.Configuration;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.EntityFramework.DbContexts;
@@ -28,20 +23,26 @@ namespace Auth
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
+            this._settings = this.Configuration.Get<AppSettings>();
         }
 
         public IConfiguration Configuration { get; }
-                
+
+        private AppSettings _settings;
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddOptions();
+            services.Configure<AppSettings>(this.Configuration);
 
 
-            var databaseCS = Configuration[Constants.DatabaseConnectionString];
-            var operationCS = Configuration[Constants.AuthOperationConnectionString];
-            var configurationCS = Configuration[Constants.AuthConfigurationConnectionString];
+
+            var databaseCS = this._settings.Data.Model.ConnectionString;
+            var operationCS = this._settings.Data.Auth.OpertationConnectionString;
+            var configurationCS = this._settings.Data.Auth.ConfigurationConnectionString;
 
             services.AddDbContext<GymOrganizerContext>( options => options.UseSqlServer(databaseCS));
 
@@ -170,6 +171,8 @@ namespace Auth
                 context.SaveChanges();
             }
 
+            context.IdentityResources.RemoveRange(context.IdentityResources);
+            context.SaveChanges();
             if (!context.IdentityResources.Any())
             {
                 foreach (var resource in Auth.Configuration.Resources.GetIdentityResources().ToList())
@@ -179,6 +182,8 @@ namespace Auth
                 context.SaveChanges();
             }
 
+            context.ApiResources.RemoveRange(context.ApiResources);
+            context.SaveChanges();
             if (!context.ApiResources.Any())
             {
                 foreach (var resource in Auth.Configuration.Resources.GetApiResources().ToList())

@@ -17,7 +17,7 @@ namespace Host.Controllers
 
         public HomeController(IIdentityServerInteractionService interaction)
         {
-            _interaction = interaction;
+            this._interaction = interaction;
         }
 
         public IActionResult Index()
@@ -27,14 +27,14 @@ namespace Host.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            this.ViewData["Message"] = "Your application description page.";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            this.ViewData["Message"] = "Your contact page.";
 
             return View();
         }
@@ -47,7 +47,7 @@ namespace Host.Controllers
             var vm = new ErrorViewModel();
 
             // retrieve error details from identityserver
-            var message = await _interaction.GetErrorContextAsync(errorId);
+            var message = await this._interaction.GetErrorContextAsync(errorId);
             if (message != null)
             {
                 vm.Error = message;

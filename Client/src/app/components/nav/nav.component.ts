@@ -1,37 +1,36 @@
 import { Component, OnInit } from '@angular/core';
+
+import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { Observable } from 'rxjs/Observable';
+
+import * as fromApp from '../../store/app.reducers';
+import { Account } from '../../models/web-api/account';
 
 @Component({
-  selector: 'navigation',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+	selector: 'go-nav',
+	templateUrl: './nav.component.html',
+	styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
 
-  claims: any;
+	account: Observable<Account>;
+	constructor(private translate: TranslateService, private oAuthService: OAuthService, private store: Store<fromApp.AppState>) {
+	}
 
-  constructor(private oAuthService: OAuthService) {
-  }
+	ngOnInit() {
+		this.translate.setDefaultLang(this.translate.getBrowserLang());
+		console.log('Postavljen inicijalni jezik: ', this.translate.getBrowserLang());
+		this.account = this.store.select(s => s.accountState.account);
+	}
 
-  ngOnInit() {
-    this.claims = <any>this.oAuthService.getIdentityClaims();
-    console.log('Constructor: ', this.claims);
-  }
+	public logout() {
+		this.oAuthService.logOut();
+	}
 
-  login() {
-    this.oAuthService.initImplicitFlow();
-  }
-
-  logout() {
-    this.oAuthService.logOut();
-  }
-
-  
-  public get username() {
-    if (!this.claims) {
-      return null;
-    }
-    console.log('User claims: ', this.claims);
-    return this.claims.given_name;
-  }
+	changeLanguage(key: string) {
+		this.translate.use(key);
+		console.log(`Pomijenjen jezik na ${key}`);
+	}
 }

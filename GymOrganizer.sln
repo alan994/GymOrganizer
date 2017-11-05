@@ -9,9 +9,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth", "Auth\Auth.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{D77C7327-664A-425A-B6C1-ADEB32C02E52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "shared\Helper\Helper.csproj", "{808CF48E-14D9-4335-8A84-5112F01F4116}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helper", "shared\Helper\Helper.csproj", "{808CF48E-14D9-4335-8A84-5112F01F4116}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{8FAC6816-85A9-48F3-8538-D8D720EEE9AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{8FAC6816-85A9-48F3-8538-D8D720EEE9AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{63EE7723-B4ED-4FD9-B474-875BD6EE86A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "shared\Utils\Utils.csproj", "{DE104C79-FEF6-4D43-BCD8-FA9BADB48721}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ", "services\RabbitMQ\RabbitMQ.csproj", "{2FD0C7D1-155A-43C9-A5CE-4FBE86402797}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "shared\BusinessLogic\BusinessLogic.csproj", "{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E6847F52-DFA8-4CA0-9AF2-991BEA2B44C4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +48,27 @@ Global
 		{8FAC6816-85A9-48F3-8538-D8D720EEE9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FAC6816-85A9-48F3-8538-D8D720EEE9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FAC6816-85A9-48F3-8538-D8D720EEE9AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE104C79-FEF6-4D43-BCD8-FA9BADB48721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE104C79-FEF6-4D43-BCD8-FA9BADB48721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE104C79-FEF6-4D43-BCD8-FA9BADB48721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE104C79-FEF6-4D43-BCD8-FA9BADB48721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD0C7D1-155A-43C9-A5CE-4FBE86402797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD0C7D1-155A-43C9-A5CE-4FBE86402797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD0C7D1-155A-43C9-A5CE-4FBE86402797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD0C7D1-155A-43C9-A5CE-4FBE86402797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{808CF48E-14D9-4335-8A84-5112F01F4116} = {D77C7327-664A-425A-B6C1-ADEB32C02E52}
+		{DE104C79-FEF6-4D43-BCD8-FA9BADB48721} = {D77C7327-664A-425A-B6C1-ADEB32C02E52}
+		{2FD0C7D1-155A-43C9-A5CE-4FBE86402797} = {63EE7723-B4ED-4FD9-B474-875BD6EE86A8}
+		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B} = {D77C7327-664A-425A-B6C1-ADEB32C02E52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8DFDE9AA-51A6-44D8-94CA-BDD922F3E461}

@@ -27,9 +27,9 @@ namespace IdentityServer4.Quickstart.UI
             IClientStore clients,
             IResourceStore resources)
         {
-            _interaction = interaction;
-            _clients = clients;
-            _resources = resources;
+            this._interaction = interaction;
+            this._clients = clients;
+            this._resources = resources;
         }
 
         /// <summary>
@@ -48,21 +48,21 @@ namespace IdentityServer4.Quickstart.UI
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Revoke(string clientId)
         {
-            await _interaction.RevokeUserConsentAsync(clientId);
+            await this._interaction.RevokeUserConsentAsync(clientId);
             return RedirectToAction("Index");
         }
 
         async Task<GrantsViewModel> BuildViewModelAsync()
         {
-            var grants = await _interaction.GetAllUserConsentsAsync();
+            var grants = await this._interaction.GetAllUserConsentsAsync();
 
             var list = new List<GrantViewModel>();
             foreach(var grant in grants)
             {
-                var client = await _clients.FindClientByIdAsync(grant.ClientId);
+                var client = await this._clients.FindClientByIdAsync(grant.ClientId);
                 if (client != null)
                 {
-                    var resources = await _resources.FindResourcesByScopeAsync(grant.Scopes);
+                    var resources = await this._resources.FindResourcesByScopeAsync(grant.Scopes);
 
                     var item = new GrantViewModel()
                     {

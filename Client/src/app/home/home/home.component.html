@@ -1,4 +1,15 @@
 <p>
-  home works!
+	{{'home works' | translate}}
 </p>
-<button class="btn btn-default">Gumb</button>
+
+<h1>
+	Hello, {{(account | async).displayName}}
+</h1>
+
+<!-- <button class="btn btn-default" (click)="login()">
+	Login
+</button> -->
+<button class="btn btn-default" (click)="logoff()">
+	Logout
+</button>
+<button class="btn btn-default" (click)="getUserInfo()">Get user info</button>

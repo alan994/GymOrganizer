@@ -26,10 +26,10 @@ namespace IdentityServer4.Quickstart.UI
             IAuthenticationSchemeProvider schemeProvider,
             IClientStore clientStore)
         {
-            _interaction = interaction;
-            _httpContextAccessor = httpContextAccessor;
-            _schemeProvider = schemeProvider;
-            _clientStore = clientStore;
+            this._interaction = interaction;
+            this._httpContextAccessor = httpContextAccessor;
+            this._schemeProvider = schemeProvider;
+            this._clientStore = clientStore;
         }
 
         //public async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
@@ -94,7 +94,7 @@ namespace IdentityServer4.Quickstart.UI
         {
             var vm = new LogoutViewModel { LogoutId = logoutId, ShowLogoutPrompt = AccountOptions.ShowLogoutPrompt };
 
-            var user = _httpContextAccessor.HttpContext.User;
+            var user = this._httpContextAccessor.HttpContext.User;
             if (user?.Identity.IsAuthenticated != true)
             {
                 // if the user is not authenticated, then just show logged out page
@@ -102,7 +102,7 @@ namespace IdentityServer4.Quickstart.UI
                 return vm;
             }
 
-            var context = await _interaction.GetLogoutContextAsync(logoutId);
+            var context = await this._interaction.GetLogoutContextAsync(logoutId);
             if (context?.ShowSignoutPrompt == false)
             {
                 // it's safe to automatically sign-out
@@ -118,7 +118,7 @@ namespace IdentityServer4.Quickstart.UI
         public async Task<LoggedOutViewModel> BuildLoggedOutViewModelAsync(string logoutId)
         {
             // get context information (client name, post logout redirect URI and iframe for federated signout)
-            var logout = await _interaction.GetLogoutContextAsync(logoutId);
+            var logout = await this._interaction.GetLogoutContextAsync(logoutId);
 
             var vm = new LoggedOutViewModel
             {
@@ -129,13 +129,13 @@ namespace IdentityServer4.Quickstart.UI
                 LogoutId = logoutId
             };
 
-            var user = _httpContextAccessor.HttpContext.User;
+            var user = this._httpContextAccessor.HttpContext.User;
             if (user?.Identity.IsAuthenticated == true)
             {
                 var idp = user.FindFirst(JwtClaimTypes.IdentityProvider)?.Value;
                 if (idp != null && idp != IdentityServer4.IdentityServerConstants.LocalIdentityProvider)
                 {
-                    var providerSupportsSignout = await _httpContextAccessor.HttpContext.GetSchemeSupportsSignOutAsync(idp);
+                    var providerSupportsSignout = await this._httpContextAccessor.HttpContext.GetSchemeSupportsSignOutAsync(idp);
                     if (providerSupportsSignout)
                     {
                         if (vm.LogoutId == null)
@@ -143,7 +143,7 @@ namespace IdentityServer4.Quickstart.UI
                             // if there's no current logout context, we need to create one
                             // this captures necessary info from the current logged in user
                             // before we signout and redirect away to the external IdP for signout
-                            vm.LogoutId = await _interaction.CreateLogoutContextAsync();
+                            vm.LogoutId = await this._interaction.CreateLogoutContextAsync();
                         }
 
                         vm.ExternalAuthenticationScheme = idp;

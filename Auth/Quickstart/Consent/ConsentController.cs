@@ -24,7 +24,7 @@ namespace IdentityServer4.Quickstart.UI
             IResourceStore resourceStore,
             ILogger<ConsentController> logger)
         {
-            _consent = new ConsentService(interaction, clientStore, resourceStore, logger);
+            this._consent = new ConsentService(interaction, clientStore, resourceStore, logger);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace IdentityServer4.Quickstart.UI
         [HttpGet]
         public async Task<IActionResult> Index(string returnUrl)
         {
-            var vm = await _consent.BuildViewModelAsync(returnUrl);
+            var vm = await this._consent.BuildViewModelAsync(returnUrl);
             if (vm != null)
             {
                 return View("Index", vm);
@@ -51,7 +51,7 @@ namespace IdentityServer4.Quickstart.UI
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(ConsentInputModel model)
         {
-            var result = await _consent.ProcessConsent(model);
+            var result = await this._consent.ProcessConsent(model);
 
             if (result.IsRedirect)
             {
@@ -60,7 +60,7 @@ namespace IdentityServer4.Quickstart.UI
 
             if (result.HasValidationError)
             {
-                ModelState.AddModelError("", result.ValidationError);
+                this.ModelState.AddModelError("", result.ValidationError);
             }
 
             if (result.ShowView)
