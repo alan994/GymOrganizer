@@ -20,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 		return next.handle(request)
 			.catch((err: any, caught: Observable<HttpEvent<any>>) => {
-				this.logger.debug('Error occurred, redirecting to error page...');
+				this.logger.debug('Error occurred, redirecting to error page...', request, err, caught);
 				this.router.navigate(['/error']);
 				return Observable.of(null);
 			});

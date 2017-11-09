@@ -29,7 +29,7 @@ const routes: Routes = [
 	exports: [
 		RouterModule
 	],
-	providers: [AuthGuard]
+	//providers: [AuthGuard]
 })
 export class HomeRoutingModule {
 

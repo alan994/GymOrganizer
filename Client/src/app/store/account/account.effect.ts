@@ -8,7 +8,7 @@ import * as AccountActions from './account.actions';
 import { AccountService } from '../../services/web-api/account.service';
 
 @Injectable()
-export class BookEffects {
+export class AccountEffects {
 	@Effect()
 	loadBook = this.actions$
 		.ofType(AccountActions.LOAD_GET_USER_PROFILE)

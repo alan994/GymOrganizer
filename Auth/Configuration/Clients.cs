@@ -23,8 +23,8 @@ namespace Auth.Configuration
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Profile,
                         "api.fullAccess"
-                    }
-
+                    },
+                    AllowedCorsOrigins = { "http://localhost:5002" }
                 },
                 new Client
                 {
@@ -40,11 +40,11 @@ namespace Auth.Configuration
 
                     RedirectUris =
                     {
-                        "http://localhost:4200/home"
+                        "http://localhost:4200/loading"
                     },
 
                     PostLogoutRedirectUris = { "http://localhost:4200" },
-                    AllowedCorsOrigins = { "http://localhost:5002", "http://localhost:4200" },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
 
                     AllowedScopes =
                     {

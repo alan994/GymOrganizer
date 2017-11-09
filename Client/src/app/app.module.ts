@@ -55,8 +55,8 @@ import { WA18396Interceptor } from './services/interceptors/json-interceptor.ser
 		Logger,
 		{ provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
 		{ provide: HTTP_INTERCEPTORS, useClass: WA18396Interceptor, multi: true},
-		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+		// { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+		// { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
 	],
 	bootstrap: [AppComponent]
 })

@@ -23,7 +23,7 @@ namespace Helper.Configuration
 
     public class Logs
     {
-        public string connectionString { get; set; }
+        public string ConnectionString { get; set; }
         public int MinimumLogLevel { get; set; }
     }
 
@@ -39,7 +39,7 @@ namespace Helper.Configuration
         public string Host { get; set; }
         public string QueueName { get; set; }
         public string Exchange { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
