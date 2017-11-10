@@ -9,6 +9,7 @@ import { authConfig } from '../../models/config/auth-config';
 import { OAuthEvent } from 'angular-oauth2-oidc/events';
 import { AppState } from '../../store/app.reducers';
 import { Store } from '@ngrx/store';
+import * as AccountActions from '../../store/account/account.actions';
 
 @Component({
 	selector: 'go-root',
@@ -55,7 +56,7 @@ export class AppComponent {
 		this.oAuthService.events.subscribe((e: OAuthEvent) => {
 			this.logger.debug('oauth/oidc event', e);
 			if (e.type === 'token_received') {
-				//this.store.dispatch(new )
+				this.store.dispatch(new AccountActions.LoadGetUserProfile());
 				//Needs to dispatch state for loading account state  in store after this effect needs to call saving account state in store as well redirect user to page
 			}
 		});

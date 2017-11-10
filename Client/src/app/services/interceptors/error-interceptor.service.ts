@@ -10,19 +10,27 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { Logger } from '../../services/utils/log.service';
+import { catchError } from 'rxjs/operators/catchError';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-	constructor(private router: Router, private logger: Logger) {}
+	constructor(private router: Router, private logger: Logger) { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-		return next.handle(request)
-			.catch((err: any, caught: Observable<HttpEvent<any>>) => {
-				this.logger.debug('Error occurred, redirecting to error page...', request, err, caught);
-				this.router.navigate(['/error']);
-				return Observable.of(null);
-			});
+		return next.handle(request).pipe(
+			catchError((err: HttpErrorResponse, caught: Observable<HttpEvent<any>>) => {
+				if (err.status === 401 || err.status === 403) {
+					this.logger.debug('Error occurred!', request, err, caught);
+					this.router.navigate(['/unauthorized']);
+					return Observable.of(null);
+				}
+				else {
+					this.logger.debug('Error occurred, redirecting to error page...', request, err, caught);
+					this.router.navigate(['/error']);
+					return Observable.of(null);
+				}
+			})
+		);
 	}
 }

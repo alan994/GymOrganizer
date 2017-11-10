@@ -25,7 +25,10 @@ import { UrlInterceptor } from './services/interceptors/url-interceptor.service'
 import { ErrorInterceptor } from './services/interceptors/error-interceptor.service';
 import { AuthInterceptor } from './services/interceptors/auth-interceptor.service';
 import { WA18396Interceptor } from './services/interceptors/json-interceptor.service';
-
+import { AccountEffects } from './store/account/account.effect';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { StoreRouterConnectingModule} from '@ngrx/router-store';
+import { RouterEffects } from './store/router/router.effects';
 
 @NgModule({
 	declarations: [
@@ -33,6 +36,7 @@ import { WA18396Interceptor } from './services/interceptors/json-interceptor.ser
 		NotFoundComponent,
 		LoadingComponent,
 		NavComponent,
+		UnauthorizedComponent,
 		WelcomeComponent
 	],
 	imports: [
@@ -45,7 +49,8 @@ import { WA18396Interceptor } from './services/interceptors/json-interceptor.ser
 		HomeModule,
 		ErrorModule,
 		StoreModule.forRoot(reducers),
-		EffectsModule.forRoot([]),
+		EffectsModule.forRoot([AccountEffects, RouterEffects]),
+		StoreRouterConnectingModule,
 		!environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
 
 		AppRoutingModule
@@ -55,8 +60,8 @@ import { WA18396Interceptor } from './services/interceptors/json-interceptor.ser
 		Logger,
 		{ provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
 		{ provide: HTTP_INTERCEPTORS, useClass: WA18396Interceptor, multi: true},
-		// { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-		// { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
 	],
 	bootstrap: [AppComponent]
 })

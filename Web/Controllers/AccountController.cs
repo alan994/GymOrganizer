@@ -12,6 +12,7 @@ namespace Web.Controllers
     //[Authorize]
     public class AccountController : Controller
     {
+        [Authorize]
         public async Task<IActionResult> GetAccountInfo()
         {
             //TODO: implement features

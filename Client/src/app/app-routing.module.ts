@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoadingComponent } from './components/loading/loading.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 const routes: Routes = [
 	{
@@ -12,6 +13,10 @@ const routes: Routes = [
 	{
 		path: 'welcome',
 		component: WelcomeComponent
+	},
+	{
+		path: 'unauthorized',
+		component: UnauthorizedComponent
 	},
 	{
 		path: '',
