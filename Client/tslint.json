@@ -7,7 +7,7 @@
     "callable-types": true,
     "class-name": true,
     "comment-format": [
-      true      
+      true
     ],
     "curly": true,
     "eofline": false,
@@ -20,7 +20,7 @@
     "import-spacing": true,
     "indent": [
       true,
-      "tabs"
+      "spaces"
     ],
     "interface-over-type-literal": true,
     "label-position": true,
@@ -64,7 +64,7 @@
     "object-literal-sort-keys": false,
     "one-line": [
       true,
-      "check-open-brace",      
+      "check-open-brace",
       "check-whitespace"
     ],
     "prefer-const": true,

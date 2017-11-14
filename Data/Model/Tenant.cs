@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,6 +16,7 @@ namespace Data.Model
         public string Name { get; set; }
         [Required]
         public string Settings { get; set; }
+        public ExistanceStatus Status { get; set; }
 
     }
 }

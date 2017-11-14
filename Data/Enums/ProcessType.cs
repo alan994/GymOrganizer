@@ -8,6 +8,9 @@ namespace Data.Enums
     {
         AddOffice,
         EditOffice,
-        DeleteOffice
+        DeleteOffice,
+        AddCity,
+        EditCity,
+        DeleteCity
     }
 }

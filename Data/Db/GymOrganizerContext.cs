@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Data.Db
 {
@@ -33,6 +34,28 @@ namespace Data.Db
             {
                 optionsBuilder.UseSqlServer(this._connectionString);
             }
+
+
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+                        
+
+            #region DefaultValues
+            builder.Entity<Office>().Property(x => x.Id).HasDefaultValueSql("newsequentialid()");
+            builder.Entity<City>().Property(x => x.Id).HasDefaultValueSql("newsequentialid()");
+            builder.Entity<Country>().Property(x => x.Id).HasDefaultValueSql("newsequentialid()");
+            builder.Entity<ProcessQueueHistory>().Property(x => x.Id).HasDefaultValueSql("newsequentialid()");
+            builder.Entity<Tenant>().Property(x => x.Id).HasDefaultValueSql("newsequentialid()");
+            builder.Entity<Term>().Property(x => x.Id).HasDefaultValueSql("newsequentialid()");
+            #endregion
         }
     }
 }

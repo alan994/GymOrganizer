@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +18,7 @@ namespace Data.Model
         public Guid CountryId { get; set; }
         public Guid TenantId { get; set; }
         public virtual Tenant Tenant { get; set; }
+        public ExistanceStatus Status { get; set; }
         public virtual Country Country { get; set; }
     }
 }

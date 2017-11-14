@@ -28,7 +28,7 @@ namespace Web.Services
         }
 
         public async Task<List<OfficeVM>> GetAllOfficessAsync()
-        {
+        {            
             return await this.db.Offices.Where(x => x.TenantId == this.TenantId)
                 .Include(x => x.City)
                 .ThenInclude(x => x.Country)

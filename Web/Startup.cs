@@ -16,6 +16,7 @@ using Web.Services;
 using Utils.Queue;
 using Microsoft.Extensions.Options;
 using IdentityServer4.AccessTokenValidation;
+using Newtonsoft.Json.Serialization;
 
 namespace Web
 {
@@ -46,14 +47,25 @@ namespace Web
             #region DI
             services.Configure<AppSettings>(this.Configuration);
             services.AddTransient((serviceProvider) => serviceProvider.GetService<IOptions<AppSettings>>().Value);
-            services.AddScoped<UserDataActionFilter>();
+            services.AddScoped<TokenDataActionFilter>();
+            services.AddScoped<ExceptionFilter>();
             services.AddTransient(typeof(OfficeService));
+            services.AddTransient(typeof(CityService));
             services.AddTransient<IQueueHandler, RabbitMQHandler>();
             #endregion
 
 
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(TokenDataActionFilter));
+                options.Filters.Add(typeof(ExceptionFilter));                
+            })
+            .AddJsonOptions(options => 
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
+
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
               .AddJwtBearer(jwt =>
               {
@@ -81,6 +93,8 @@ namespace Web
                 .AllowAnyHeader()
                 .AllowAnyMethod()
             );
+
+            AutoMapperInitializer.Initialize();
 
             app.UseSignalR(routes =>
             {

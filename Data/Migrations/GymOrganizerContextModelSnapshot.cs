@@ -24,7 +24,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Model.City", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<Guid>("CountryId");
 
@@ -32,9 +33,16 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<string>("PostalCode")
+                        .IsRequired();
+
+                    b.Property<Guid>("TenantId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Cities");
                 });
@@ -42,7 +50,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Model.Country", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Iso2Code")
                         .IsRequired()
@@ -56,7 +65,14 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<string>("NumericCode")
+                        .IsRequired();
+
+                    b.Property<Guid>("TenantId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Countries");
                 });
@@ -64,7 +80,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Model.Office", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -76,11 +93,46 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<Guid>("TenantId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("TenantId");
+
                     b.ToTable("Offices");
+                });
+
+            modelBuilder.Entity("Data.Model.ProcessQueueHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
+
+                    b.Property<Guid>("AddedById");
+
+                    b.Property<DateTime>("AddedToQueue");
+
+                    b.Property<string>("Data");
+
+                    b.Property<string>("ErrorMesage");
+
+                    b.Property<DateTime?>("FinishedAt");
+
+                    b.Property<int>("Status");
+
+                    b.Property<Guid>("TenantId");
+
+                    b.Property<int>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddedById");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("ProcessQueuesHistory");
                 });
 
             modelBuilder.Entity("Data.Model.Role", b =>
@@ -110,7 +162,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Model.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -127,7 +180,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Model.Term", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<int>("Capacity");
 
@@ -141,11 +195,15 @@ namespace Data.Migrations
 
                     b.Property<DateTime>("Start");
 
+                    b.Property<Guid>("TenantId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CoachId");
 
                     b.HasIndex("OfficeId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Terms");
                 });
@@ -297,7 +355,20 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Model.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Data.Model.Country", b =>
+                {
+                    b.HasOne("Data.Model.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Data.Model.Office", b =>
@@ -305,7 +376,25 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Model.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Data.Model.ProcessQueueHistory", b =>
+                {
+                    b.HasOne("Data.Model.User", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Model.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Data.Model.Term", b =>
@@ -313,12 +402,17 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.User", "Coach")
                         .WithMany()
                         .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Data.Model.Office", "Office")
                         .WithMany()
                         .HasForeignKey("OfficeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Model.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Data.Model.User", b =>
@@ -326,7 +420,7 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -334,7 +428,7 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
@@ -342,7 +436,7 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
@@ -350,7 +444,7 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
@@ -358,12 +452,12 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Data.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -371,7 +465,7 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

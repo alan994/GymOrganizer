@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+    <tr>
+      <td>Id</td>
+      <td>Name</td>
+      <td>Address</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let office of (offices | async)">
+      <td>{{office.id}}</td>
+      <td>{{office.name}}</td>
+      <td>{{office.address}}</td>
+    </tr>
+  </tbody>
+</table>

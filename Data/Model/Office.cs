@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace Data.Model
         [StringLength(255)]
         public string Address { get; set; }
         public Guid TenantId { get; set; }
+        public ExistanceStatus Status { get; set; }
         public Guid CityId { get; set; }
         public virtual Tenant Tenant { get; set; }
         public virtual City City { get; set; }

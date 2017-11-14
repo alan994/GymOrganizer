@@ -14,6 +14,7 @@ namespace Web
     {
         public static void Main(string[] args)
         {
+            new ArgumentException();
             BuildWebHost(args).Run();
         }
 

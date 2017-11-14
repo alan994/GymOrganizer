@@ -5,62 +5,59 @@ using Web.ViewModels;
 using Microsoft.Extensions.Logging;
 using Web.Services;
 using System.Collections.Generic;
-using Web.Utils;
+using Microsoft.AspNetCore.Authorization;
+using Data.Db;
 
 namespace Web.Controllers
 {
     [Route("api/offices")]
-    public class OfficesController : Controller
+    [Authorize]
+    public class OfficesController : AuthController
     {
-        public readonly ILogger<OfficesController> logger;
-        public readonly OfficeService officeService;
+        public readonly ILogger<OfficesController> Logger;
+        public readonly OfficeService OfficeService;
 
-        public OfficesController(ILogger<OfficesController> logger, OfficeService officeService)
+        public OfficesController(ILogger<OfficesController> logger, OfficeService officeService, GymOrganizerContext db) : base(db)
         {
-            this.logger = logger;
-            this.officeService = officeService;
+            this.Logger = logger;
+            this.OfficeService = officeService;
         }
 
-        [HttpGet]
-        [ServiceFilter(typeof(UserDataActionFilter))]
+        [HttpGet]        
         public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                List<OfficeVM> resultList = await officeService.GetAllOfficessAsync();
-                return Ok(resultList);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Failed to fetch offices", ex);
-                return BadRequest();
-            }
+            List<OfficeVM> resultList = await this.OfficeService.GetAllOfficessAsync();
+            return Ok(resultList);
         }
 
-        
-        [HttpGet("{id}")]
+
+        [HttpGet("{id}")]        
         public async Task<IActionResult> GetById(Guid id)
         {
-            return Ok();
+            OfficeVM office = await this.OfficeService.GetOfficeByIdAsync(id);
+            return Json(office);
         }
-                
+
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]OfficeVM office)
         {
+            await this.OfficeService.AddOffice(office);
             return Ok();
         }
 
-        
+
         [HttpPut]
         public async Task<IActionResult> Edit([FromBody]OfficeVM office)
         {
+            await this.OfficeService.EditOffice(office);
             return Ok();
         }
 
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
+            await this.OfficeService.DeleteOffice(id);
             return Ok();
         }
     }

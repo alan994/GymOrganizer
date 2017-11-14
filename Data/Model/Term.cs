@@ -1,9 +1,7 @@
 ﻿using Data.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Data.Model
 {
@@ -22,6 +20,7 @@ namespace Data.Model
         public Guid TenantId { get; set; }
         public virtual Tenant Tenant { get; set; }
         public virtual Office Office { get; set; }
+        public ExistanceStatus Status { get; set; }
         public virtual User Coach { get; set; }
     }
 }

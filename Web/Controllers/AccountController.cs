@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Web.ViewModels;
+using Web.Utils;
 
 namespace Web.Controllers
 {
@@ -13,6 +14,7 @@ namespace Web.Controllers
     public class AccountController : Controller
     {
         [Authorize]
+        [ServiceFilter(typeof(TokenDataActionFilter))]
         public async Task<IActionResult> GetAccountInfo()
         {
             //TODO: implement features

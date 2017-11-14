@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Data.Model
 {
     public class User : IdentityUser<Guid>
-    {        
+    {   
         [StringLength(50)]
         public string FirstName { get; set; }       
         [StringLength(50)]

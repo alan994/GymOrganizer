@@ -27,42 +27,44 @@ import { AuthInterceptor } from './services/interceptors/auth-interceptor.servic
 import { WA18396Interceptor } from './services/interceptors/json-interceptor.service';
 import { AccountEffects } from './store/account/account.effect';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
-import { StoreRouterConnectingModule} from '@ngrx/router-store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterEffects } from './store/router/router.effects';
+import { OfficeModule } from './office/office.module';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		NotFoundComponent,
-		LoadingComponent,
-		NavComponent,
-		UnauthorizedComponent,
-		WelcomeComponent
-	],
-	imports: [
-		BrowserModule,
-		HttpClientModule,
-		HttpModule,
+  declarations: [
+    AppComponent,
+    NotFoundComponent,
+    LoadingComponent,
+    NavComponent,
+    UnauthorizedComponent,
+    WelcomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    HttpModule,
 
-		SharedModule,
-		OAuthModule.forRoot(),
-		HomeModule,
-		ErrorModule,
-		StoreModule.forRoot(reducers),
-		EffectsModule.forRoot([AccountEffects, RouterEffects]),
-		StoreRouterConnectingModule,
-		!environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
+    SharedModule,
+    OAuthModule.forRoot(),
+    HomeModule,
+    OfficeModule,
+    ErrorModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AccountEffects, RouterEffects]),
+    StoreRouterConnectingModule,
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
 
-		AppRoutingModule
-	],
-	providers: [
-		AccountService,
-		Logger,
-		{ provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true},
-		{ provide: HTTP_INTERCEPTORS, useClass: WA18396Interceptor, multi: true},
-		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-	],
-	bootstrap: [AppComponent]
+    AppRoutingModule
+  ],
+  providers: [
+    AccountService,
+    Logger,
+    { provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: WA18396Interceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
