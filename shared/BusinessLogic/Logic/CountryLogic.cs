@@ -25,7 +25,7 @@ namespace BusinessLogic.Logic
             this.logger = loggerFactory.CreateLogger<CountryLogic>();
         }
 
-        public async Task AddCountry(CountryQueue countryQueue)
+        public async Task<Guid> AddCountry(CountryQueue countryQueue)
         {
             await CheckAddEdit(countryQueue);
 
@@ -43,6 +43,7 @@ namespace BusinessLogic.Logic
             await this.db.SaveChangesAsync();
 
             this.logger.LogInformation($"County '{country.Name}' with id '{country.Id}' has successfully created");
+            return country.Id;
         }
 
         public async Task EditCountry(CountryQueue countryQueue)

@@ -25,7 +25,7 @@ namespace BusinessLogic.Logic
             this.logger = loggerFactory.CreateLogger<CityLogic>();
         }
 
-        public async Task AddCity(CityQueue cityQueue)
+        public async Task<Guid> AddCity(CityQueue cityQueue)
         {
             await CheckAddEdit(cityQueue);
             City city = new City()
@@ -39,8 +39,9 @@ namespace BusinessLogic.Logic
 
             this.db.Cities.Add(city);
             await this.db.SaveChangesAsync();
-
-            this.logger.LogInformation($"City '{city.Name}' with id '{city.Id}' has successfully created");            
+            
+            this.logger.LogInformation($"City '{city.Name}' with id '{city.Id}' has successfully created");
+            return city.Id;
         }
 
         public async Task EditCity(CityQueue cityQueue)

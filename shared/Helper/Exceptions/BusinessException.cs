@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Helper.Exceptions
 {
-    public class BusinessException : Exception
+    public abstract class BusinessException : Exception
     {
         public ExceptionCode Code { get; }
         public Dictionary<string, string> AdditionalData { get; set; }

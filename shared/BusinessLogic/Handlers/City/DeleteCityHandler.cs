@@ -10,41 +10,41 @@ using Helper.Exceptions;
 
 namespace BusinessLogic.Handlers.City
 {
-    public class AddCityHandler : HandlerBase, IHandler
+    public class DeleteCityHandler: HandlerBase, IHandler
     {
         private readonly AppSettings settings;
-        private readonly ILogger<AddCityHandler> logger;
+        private readonly ILogger<DeleteCityHandler> logger;
         private readonly GymOrganizerContext db;
         private readonly ILoggerFactory loggerFactory;
 
-        public AddCityHandler(GymOrganizerContext db, ILoggerFactory loggerFactory, AppSettings settings) : base(loggerFactory)
+        public DeleteCityHandler(GymOrganizerContext db, ILoggerFactory loggerFactory, AppSettings settings) : base(loggerFactory)
         {
             this.settings = settings;
-            this.logger = loggerFactory.CreateLogger<AddCityHandler>();
+            this.logger = loggerFactory.CreateLogger<DeleteCityHandler>();
             this.db = db;
             this.loggerFactory = loggerFactory;
         }
-        
+
         public async Task<QueueResult> Handle(string data)
         {
-            QueueResult result = new QueueResult(Data.Enums.ProcessType.AddCity);
+            QueueResult result = new QueueResult(Data.Enums.ProcessType.DeleteCity);
 
             if (string.IsNullOrEmpty(data))
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
             try
-            {                
+            {
                 CityQueue cityQueue = JsonConvert.DeserializeObject<CityQueue>(data);
                 CityLogic cityLogic = new CityLogic(this.db, result.AdditionalData, this.loggerFactory);
-                var cityId = await cityLogic.AddCity(cityQueue);
+                await cityLogic.DeleteCity(cityQueue);
 
-                result.AdditionalData.Add("cityId", cityId.ToString());
+                result.AdditionalData.Add("cityId", cityQueue.Id.ToString());
                 result.AdditionalData.Add("cityName", cityQueue.Name);
 
                 result.Status = Status.Success;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 HandleException(ex, result);
             }

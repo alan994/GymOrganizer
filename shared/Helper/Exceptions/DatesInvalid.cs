@@ -6,7 +6,7 @@ namespace Helper.Exceptions
 {
     public class DatesInvalid : BusinessException
     {
-        public DatesInvalid(string msg, DateTime? start = null, DateTime? end = null) : base(ExceptionCode.NameAlreadyExists, msg)
+        public DatesInvalid(string msg, DateTime? start = null, DateTime? end = null) : base(ExceptionCode.DatesInvalid, msg)
         {
             if (start!= null && start.HasValue)
             {

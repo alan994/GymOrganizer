@@ -1,4 +1,5 @@
-﻿using Helper.Exceptions;
+﻿using Data.Enums;
+using Helper.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,12 +13,13 @@ namespace BusinessLogic.Model
         public Status Status { get; set; }
         public Guid RequestOueueId { get; set; }
         public ExceptionCode? ExceptionCode { get; set; }
-        public int OperationCode { get; set; }        
+        public ProcessType ProcessType { get; set; }
         public Dictionary<string, string> AdditionalData { get; set; }
 
-        public QueueResult()
+        public QueueResult(ProcessType processType)
         {
             this.AdditionalData = new Dictionary<string, string>();
+            this.ProcessType = processType;
         }
     }    
     public enum Status : int

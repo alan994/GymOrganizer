@@ -21,13 +21,18 @@ namespace BusinessLogic.Handlers
             {
                 code = (exception as BusinessException).Code;
                 queueResult.ExceptionCode = code;
-                queueResult.Status = Status.Fail;
 
+                //Concatenate additionalData
                 foreach (var item in (exception as BusinessException).AdditionalData)
                 {
                     queueResult.AdditionalData.Add(item.Key, item.Value);
                 }
             }
+            else
+            {
+                queueResult.ExceptionCode = ExceptionCode.Error;
+            }
+            queueResult.Status = Status.Fail;
 
             //TODO: log exception, code, tenantId, userId
             this.logger.LogError($"Failed to execute action");

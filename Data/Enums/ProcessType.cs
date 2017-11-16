@@ -11,6 +11,12 @@ namespace Data.Enums
         DeleteOffice,
         AddCity,
         EditCity,
-        DeleteCity
+        DeleteCity,
+        AddCountry,
+        EditCountry,
+        DeleteCountry,
+        AddTerm,
+        EditTerm,
+        DeleteTerm
     }
 }

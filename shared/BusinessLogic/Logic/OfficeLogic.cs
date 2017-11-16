@@ -25,7 +25,7 @@ namespace BusinessLogic.Logic
             this.logger = loggerFactory.CreateLogger<OfficeLogic>();
         }
 
-        public async Task AddCity(OfficeQueue officeQueue)
+        public async Task<Guid> AddOffice(OfficeQueue officeQueue)
         {
             await CheckAddEdit(officeQueue);
 
@@ -42,9 +42,10 @@ namespace BusinessLogic.Logic
             await this.db.SaveChangesAsync();
 
             this.logger.LogInformation($"Office '{office.Name}' with id '{office.Id}' has successfully created");
+            return office.Id;
         }
 
-        public async Task EditCity(OfficeQueue officeQueue)
+        public async Task EditOffice(OfficeQueue officeQueue)
         {
             await CheckAddEdit(officeQueue);
 
@@ -59,7 +60,7 @@ namespace BusinessLogic.Logic
 
         }
 
-        public async Task DeleteCity(OfficeQueue officeQueue)
+        public async Task DeleteOffice(OfficeQueue officeQueue)
         {
             await CheckDelete(officeQueue);
             Office office = await this.db.GetOfficeById(officeQueue.TenantId, officeQueue.Id.Value).FirstOrDefaultAsync();

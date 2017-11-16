@@ -8,43 +8,43 @@ using BusinessLogic.Logic;
 using Newtonsoft.Json;
 using Helper.Exceptions;
 
-namespace BusinessLogic.Handlers.City
+namespace BusinessLogic.Handlers.Office
 {
-    public class AddCityHandler : HandlerBase, IHandler
+    public class DeleteOfficeHandler: HandlerBase, IHandler
     {
         private readonly AppSettings settings;
-        private readonly ILogger<AddCityHandler> logger;
+        private readonly ILogger<DeleteOfficeHandler> logger;
         private readonly GymOrganizerContext db;
         private readonly ILoggerFactory loggerFactory;
 
-        public AddCityHandler(GymOrganizerContext db, ILoggerFactory loggerFactory, AppSettings settings) : base(loggerFactory)
+        public DeleteOfficeHandler(GymOrganizerContext db, ILoggerFactory loggerFactory, AppSettings settings) : base(loggerFactory)
         {
             this.settings = settings;
-            this.logger = loggerFactory.CreateLogger<AddCityHandler>();
+            this.logger = loggerFactory.CreateLogger<DeleteOfficeHandler>();
             this.db = db;
             this.loggerFactory = loggerFactory;
         }
-        
+
         public async Task<QueueResult> Handle(string data)
         {
-            QueueResult result = new QueueResult(Data.Enums.ProcessType.AddCity);
+            QueueResult result = new QueueResult(Data.Enums.ProcessType.DeleteOffice);
 
             if (string.IsNullOrEmpty(data))
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
             try
-            {                
-                CityQueue cityQueue = JsonConvert.DeserializeObject<CityQueue>(data);
-                CityLogic cityLogic = new CityLogic(this.db, result.AdditionalData, this.loggerFactory);
-                var cityId = await cityLogic.AddCity(cityQueue);
+            {
+                OfficeQueue officeQueue = JsonConvert.DeserializeObject<OfficeQueue>(data);
+                OfficeLogic officeLogic = new OfficeLogic(this.db, result.AdditionalData, this.loggerFactory);
+                await officeLogic.DeleteOffice(officeQueue);
 
-                result.AdditionalData.Add("cityId", cityId.ToString());
-                result.AdditionalData.Add("cityName", cityQueue.Name);
+                result.AdditionalData.Add("officeId", officeQueue.Id.ToString());
+                result.AdditionalData.Add("officeName", officeQueue.Name);
 
                 result.Status = Status.Success;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 HandleException(ex, result);
             }
