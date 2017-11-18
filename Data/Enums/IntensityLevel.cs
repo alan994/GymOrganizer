@@ -6,7 +6,7 @@ namespace Data.Enums
 {
     public enum IntensityLevel
     {
-        Biginer = 1,
+        Beginner = 1,
         Normal = 2,
         Pro = 3
     }

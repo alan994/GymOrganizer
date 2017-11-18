@@ -1,4 +1,6 @@
 ﻿using Data.Enums;
+using Data.Model.Helper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +18,15 @@ namespace Data.Model
         public string Name { get; set; }
         [Required]
         public string Settings { get; set; }
-        public ExistanceStatus Status { get; set; }
+        public ExistenceStatus Status { get; set; }
+        [NotMapped]
+        public TenantConfiguration Configuration
+        {
+            get
+            {
+                return JsonConvert.DeserializeObject<TenantConfiguration>(this.Settings);
+            }
+        }
 
     }
 }

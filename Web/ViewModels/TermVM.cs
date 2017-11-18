@@ -15,7 +15,7 @@ namespace Web.ViewModels
         public IntensityLevel IntensityLevel { get; set; }
         
         public OfficeVM Office { get; set; }
-        public ExistanceStatus Status { get; set; }
+        public ExistenceStatus Status { get; set; }
         public UserVM Coach { get; set; }
     }
 }

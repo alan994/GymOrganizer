@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Data.Enums
 {
-    public enum ExistanceStatus
+    public enum ExistenceStatus
     {
         Deleted = -1,
         Deactivated = 0,

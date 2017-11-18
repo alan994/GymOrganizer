@@ -76,14 +76,14 @@ namespace BusinessLogic.Logic
             await CheckForSameName(cityQueue.Name.Trim(), cityQueue.Id, cityQueue.TenantId);
         }
 
-        private async Task CheckForSameName(string name, Guid? countryId, Guid tenantId)
+        private async Task CheckForSameName(string name, Guid? cityId, Guid tenantId)
         {
             City cityWithTheSameName = null;
-            if (countryId.HasValue)
+            if (cityId.HasValue)
             {
                 cityWithTheSameName = await this.db
                     .GetAllCities(tenantId)
-                    .Where(x => x.Name == name && x.Id != countryId.Value)
+                    .Where(x => x.Name == name && x.Id != cityId.Value)
                     .FirstOrDefaultAsync();
             }
             else

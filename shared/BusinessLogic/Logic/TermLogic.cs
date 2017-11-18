@@ -85,7 +85,7 @@ namespace BusinessLogic.Logic
         private async Task CheckIfTermsAreOverlapping(TermQueue termQueue)
         {
             var overlappingTerm = await this.db.Terms
-                .Where(x => x.OfficeId == termQueue.OfficeId && x.Status != Data.Enums.ExistanceStatus.Deleted && x.Start < termQueue.End && termQueue.Start < x.End)
+                .Where(x => x.OfficeId == termQueue.OfficeId && x.Status != Data.Enums.ExistenceStatus.Deleted && x.Start < termQueue.End && termQueue.Start < x.End)
                 .Include(x => x.Office)
                 .FirstOrDefaultAsync();
 

@@ -10,12 +10,12 @@ namespace Data.Db.Queries
     {
         public static IQueryable<Country> GetAllCountries(this GymOrganizerContext db, Guid tenantId)
         {
-            return db.Countries.Where(x => x.TenantId == tenantId && x.Status != Enums.ExistanceStatus.Deleted);
+            return db.Countries.Where(x => x.TenantId == tenantId && x.Status != Enums.ExistenceStatus.Deleted);
         }
 
         public static IQueryable<Country> GetAllActiveCountries(this GymOrganizerContext db, Guid tenantId)
         {
-            return GetAllCountries(db, tenantId).Where(x => x.Status == Enums.ExistanceStatus.Active);
+            return GetAllCountries(db, tenantId).Where(x => x.Status == Enums.ExistenceStatus.Active);
         }
 
         public static IQueryable<Country> GetCountryById(this GymOrganizerContext db, Guid tenantId, Guid countryId)

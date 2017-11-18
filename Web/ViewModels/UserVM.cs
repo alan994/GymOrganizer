@@ -9,6 +9,6 @@ namespace Web.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DisplayName { get; set; }
-        public ExistanceStatus Status { get; set; }        
+        public ExistenceStatus Status { get; set; }        
     }
 }

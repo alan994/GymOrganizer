@@ -14,6 +14,6 @@ namespace BusinessLogic.Model
         public Guid CoachId { get; set; }
         public Guid OfficeId { get; set; }
         public IntensityLevel IntensityLevel { get; set; }
-        public ExistanceStatus Status { get; set; }
+        public ExistenceStatus Status { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Data.Model
         public Guid TenantId { get; set; }
         public virtual Tenant Tenant { get; set; }
         public virtual Office Office { get; set; }
-        public ExistanceStatus Status { get; set; }
+        public ExistenceStatus Status { get; set; }
         public virtual User Coach { get; set; }
     }
 }

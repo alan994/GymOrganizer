@@ -5,12 +5,11 @@ using System.Text;
 
 namespace BusinessLogic.Model
 {
-    public class OfficeQueue : QueueBase
+    public class TenantQueue : QueueBase
     {
         public Guid? Id { get; set; }
-        public Guid CityId { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
         public ExistenceStatus Status { get; set; }
+        public string Name { get; set; }
+        public string Settings { get; set; }
     }
 }

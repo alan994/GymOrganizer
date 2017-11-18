@@ -6,7 +6,27 @@ import { Injectable } from '@angular/core';
 export class OfficeService {
   constructor(private http: HttpClient) { }
 
-  getAllActiveOffices() {
+  getAllOffices() {
     return this.http.get<Office[]>('/api/offices');
+  }
+
+  getAllActiveOffices() {
+    return this.http.get<Office[]>('/api/offices/active');
+  }
+
+  getOfficeById(id: string) {
+    return this.http.get<Office>('/api/offices/' + id);
+  }
+
+  addOffice(office: Office) {
+    return this.http.post('/api/offices', office);
+  }
+
+  editOffice(office: Office) {
+    return this.http.put('/api/offices', office);
+  }
+
+  deleteOffice(id: string){
+    return this.http.delete('/api/offices/' + id);
   }
 }

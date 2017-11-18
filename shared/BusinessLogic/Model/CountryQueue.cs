@@ -12,7 +12,7 @@ namespace BusinessLogic.Model
         public string Iso2Code { get; set; }
         public string Iso3Code { get; set; }
         public string NumericCode { get; set; }
-        public ExistanceStatus Status { get; set; }
+        public ExistenceStatus Status { get; set; }
 
     }
 }

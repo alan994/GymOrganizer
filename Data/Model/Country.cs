@@ -23,7 +23,7 @@ namespace Data.Model
         public string Iso3Code { get; set; }
         [Required]
         public string NumericCode { get; set; }
-        public ExistanceStatus Status { get; set; }
+        public ExistenceStatus Status { get; set; }
         public Guid TenantId { get; set; }
         public virtual Tenant Tenant { get; set; }
     }

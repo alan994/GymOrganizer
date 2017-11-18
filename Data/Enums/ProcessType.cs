@@ -17,6 +17,8 @@ namespace Data.Enums
         DeleteCountry,
         AddTerm,
         EditTerm,
-        DeleteTerm
+        DeleteTerm,
+        AddTenant,
+        EditTenant
     }
 }
