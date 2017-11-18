@@ -26,7 +26,7 @@ namespace Web.Controllers
         [HttpGet]        
         public async Task<IActionResult> GetAll()
         {
-            List<OfficeVM> resultList = await this.OfficeService.GetAllOfficessAsync();
+            List<OfficeVM> resultList = await this.OfficeService.GetAllOffices();
             return Ok(resultList);
         }
 

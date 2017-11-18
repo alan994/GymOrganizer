@@ -24,7 +24,7 @@ namespace Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            List<CityVM> resultList = await this.CityService.GetAllCitiesAsync();
+            List<CityVM> resultList = await this.CityService.GetAllCities();
             return Ok(resultList);
         }
 
@@ -32,7 +32,7 @@ namespace Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            CityVM city = await this.CityService.GetCityByIdAsync(id);
+            CityVM city = await this.CityService.GetCityById(id);
             return Json(city);
         }
 

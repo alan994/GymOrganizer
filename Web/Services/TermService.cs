@@ -14,91 +14,102 @@ using Web.ViewModels;
 
 namespace Web.Services
 {
-    public class CityService : ServiceBase
+    public class TermService : ServiceBase
     {
         private readonly GymOrganizerContext db;
         private readonly IQueueHandler queueHandler;
 
-        public CityService(GymOrganizerContext db, IQueueHandler queueHandler)
+        public TermService(GymOrganizerContext db, IQueueHandler queueHandler)
         {
             this.db = db;
             this.queueHandler = queueHandler;
         }
 
-        public async Task<List<CityVM>> GetAllCities()
+        public async Task<List<TermVM>> GetAllTerms()
         {
-            return await this.db.GetAllCities(this.TenantId)
-                .Include(x => x.Country)
-                .Select(x => Mapper.Map<CityVM>(x))
+            return await this.db.GetAllTerms(this.TenantId)
+                .Include(x => x.Office)
+                .ThenInclude(x => x.City)
+                .ThenInclude(x => x.Country)
+                .Include(x => x.Coach)
+                .Select(x => Mapper.Map<TermVM>(x))
                 .ToListAsync();
         }
 
-        public async Task<List<CityVM>> GetAllAcitveCities()
+        public async Task<List<TermVM>> GetAllActiveTerms()
         {
-            return await this.db.GetAllActiveCities(this.TenantId)
-                .Include(x => x.Country)
-                .Select(x => Mapper.Map<CityVM>(x))
+            return await this.db.GetAllActiveTerms(this.TenantId)
+                .Include(x => x.Office)
+                .ThenInclude(x => x.City)
+                .ThenInclude(x => x.Country)
+                .Include(x => x.Coach)
+                .Select(x => Mapper.Map<TermVM>(x))
                 .ToListAsync();
         }
 
-        public async Task<CityVM> GetCityById(Guid id)
+        public async Task<TermVM> GetTermById(Guid id)
         {
-            return await this.db.GetCityById(this.TenantId, id)
-                .Include(x => x.Country)
-                .Select(x => Mapper.Map<CityVM>(x))
+            return await this.db.GetTermById(this.TenantId, id)
+                .Include(x => x.Office)
+                .ThenInclude(x => x.City)
+                .ThenInclude(x => x.Country)
+                .Include(x => x.Coach)
+                .Select(x => Mapper.Map<TermVM>(x))
                 .FirstOrDefaultAsync();
         }
 
-        public async Task AddCity(CityVM city)
+        public async Task AddTerm(TermVM term)
         {
-            CityQueue cityQueue = Mapper.Map<CityVM, CityQueue>(city, options => {
+            TermQueue termQueue = Mapper.Map<TermVM, TermQueue>(term, options => {
                 options.AfterMap((src, dest) => dest.UserPerformingAction = this.UserId);
                 options.AfterMap((src, dest) => dest.TenantId = this.TenantId);
             });
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()
             {
-                Data = JsonConvert.SerializeObject(cityQueue),
+                Data = JsonConvert.SerializeObject(termQueue),
                 AddedById = this.UserId,
                 TenantId = this.TenantId,
                 Status = Data.Enums.ResultStatus.Waiting,
-                Type = Data.Enums.ProcessType.AddCity
+                Type = Data.Enums.ProcessType.AddTerm
             };
             await this.queueHandler.AddToQueue(processQueueHistory);
         }
 
-        public async Task EditCity(CityVM city)
+        public async Task EditTerm(TermVM term)
         {
-            CityQueue cityQueue = Mapper.Map<CityVM, CityQueue>(city, options => {
+            TermQueue termQueue = Mapper.Map<TermVM, TermQueue>(term, options => {
                 options.AfterMap((src, dest) => dest.UserPerformingAction = this.UserId);
                 options.AfterMap((src, dest) => dest.TenantId = this.TenantId);
             });
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()
             {
-                Data = JsonConvert.SerializeObject(cityQueue),
+                Data = JsonConvert.SerializeObject(termQueue),
                 AddedById = this.UserId,
                 TenantId = this.TenantId,
                 Status = Data.Enums.ResultStatus.Waiting,
-                Type = Data.Enums.ProcessType.EditCity
+                Type = Data.Enums.ProcessType.EditTerm
             };
             await this.queueHandler.AddToQueue(processQueueHistory);
         }
 
-        public async Task DeleteCity(Guid id)
+        public async Task DeleteTerm(Guid id)
         {
-            CityQueue cityQueue = new CityQueue()
+            TermQueue termQueue = new TermQueue()
             {
-                Id = id
+                Id = id,
+                TenantId = this.TenantId,
+                UserPerformingAction = this.UserId
             };
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()
             {
-                Data = JsonConvert.SerializeObject(cityQueue),
+                Data = JsonConvert.SerializeObject(termQueue),
                 AddedById = this.UserId,
                 TenantId = this.TenantId,
                 Status = Data.Enums.ResultStatus.Waiting,
-                Type = Data.Enums.ProcessType.DeleteCity
+                Type = Data.Enums.ProcessType.DeleteTerm
             };
             await this.queueHandler.AddToQueue(processQueueHistory);
         }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.Model;
 using Data.Db;
+using Data.Db.Queries;
 using Data.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -27,9 +28,18 @@ namespace Web.Services
             this.queueHandler = queueHandler;
         }
 
-        public async Task<List<OfficeVM>> GetAllOfficessAsync()
+        public async Task<List<OfficeVM>> GetAllOffices()
         {            
-            return await this.db.Offices.Where(x => x.TenantId == this.TenantId)
+            return await this.db.GetAllOffices(this.TenantId)
+                .Include(x => x.City)
+                .ThenInclude(x => x.Country)
+                .Select(x => Mapper.Map<OfficeVM>(x))
+                .ToListAsync();
+        }
+
+        public async Task<List<OfficeVM>> GetAllActiveOffices()
+        {
+            return await this.db.GetAllActiveOffices(this.TenantId)
                 .Include(x => x.City)
                 .ThenInclude(x => x.Country)
                 .Select(x => Mapper.Map<OfficeVM>(x))
@@ -38,7 +48,7 @@ namespace Web.Services
 
         public async Task<OfficeVM> GetOfficeByIdAsync(Guid id)
         {
-            return await this.db.Offices.Where(x => x.TenantId == this.TenantId && x.Id == id)
+            return await this.db.GetOfficeById(this.TenantId, id)
                 .Include(x => x.City)
                 .ThenInclude(x => x.Country)
                 .Select(x => Mapper.Map<OfficeVM>(x))

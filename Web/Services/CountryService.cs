@@ -14,93 +14,86 @@ using Web.ViewModels;
 
 namespace Web.Services
 {
-    public class CityService : ServiceBase
+    public class CountryService : ServiceBase
     {
         private readonly GymOrganizerContext db;
         private readonly IQueueHandler queueHandler;
 
-        public CityService(GymOrganizerContext db, IQueueHandler queueHandler)
+        public CountryService(GymOrganizerContext db, IQueueHandler queueHandler)
         {
             this.db = db;
             this.queueHandler = queueHandler;
         }
 
-        public async Task<List<CityVM>> GetAllCities()
+        public async Task<List<CountryVM>> GetAllCountries()
         {
-            return await this.db.GetAllCities(this.TenantId)
-                .Include(x => x.Country)
-                .Select(x => Mapper.Map<CityVM>(x))
-                .ToListAsync();
+            return await this.db.GetAllCountries(this.TenantId).Select(x => Mapper.Map<CountryVM>(x)).ToListAsync();
         }
 
-        public async Task<List<CityVM>> GetAllAcitveCities()
+        public async Task<List<CountryVM>> GetAllActiveCountries()
         {
-            return await this.db.GetAllActiveCities(this.TenantId)
-                .Include(x => x.Country)
-                .Select(x => Mapper.Map<CityVM>(x))
-                .ToListAsync();
+            return await this.db.GetAllActiveCountries(this.TenantId).Select(x => Mapper.Map<CountryVM>(x)).ToListAsync();
+        }
+        public async Task<CountryVM> GetCountryById(Guid id)
+        {
+            return await this.db.GetCountryById(this.TenantId, id).Select(x => Mapper.Map<CountryVM>(x)).FirstOrDefaultAsync();   
         }
 
-        public async Task<CityVM> GetCityById(Guid id)
+        public async Task AddCountry(CountryVM country)
         {
-            return await this.db.GetCityById(this.TenantId, id)
-                .Include(x => x.Country)
-                .Select(x => Mapper.Map<CityVM>(x))
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task AddCity(CityVM city)
-        {
-            CityQueue cityQueue = Mapper.Map<CityVM, CityQueue>(city, options => {
+            CountryQueue countryQueue = Mapper.Map<CountryVM, CountryQueue>(country, options => {
                 options.AfterMap((src, dest) => dest.UserPerformingAction = this.UserId);
                 options.AfterMap((src, dest) => dest.TenantId = this.TenantId);
             });
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()
             {
-                Data = JsonConvert.SerializeObject(cityQueue),
+                Data = JsonConvert.SerializeObject(countryQueue),
                 AddedById = this.UserId,
                 TenantId = this.TenantId,
                 Status = Data.Enums.ResultStatus.Waiting,
-                Type = Data.Enums.ProcessType.AddCity
+                Type = Data.Enums.ProcessType.AddCountry
             };
             await this.queueHandler.AddToQueue(processQueueHistory);
         }
 
-        public async Task EditCity(CityVM city)
+        public async Task EditCountry(CountryVM country)
         {
-            CityQueue cityQueue = Mapper.Map<CityVM, CityQueue>(city, options => {
+            CountryQueue countryQueue = Mapper.Map<CountryVM, CountryQueue>(country, options => {
                 options.AfterMap((src, dest) => dest.UserPerformingAction = this.UserId);
                 options.AfterMap((src, dest) => dest.TenantId = this.TenantId);
             });
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()
             {
-                Data = JsonConvert.SerializeObject(cityQueue),
+                Data = JsonConvert.SerializeObject(countryQueue),
                 AddedById = this.UserId,
                 TenantId = this.TenantId,
                 Status = Data.Enums.ResultStatus.Waiting,
-                Type = Data.Enums.ProcessType.EditCity
+                Type = Data.Enums.ProcessType.EditCountry
             };
             await this.queueHandler.AddToQueue(processQueueHistory);
         }
 
-        public async Task DeleteCity(Guid id)
+        public async Task DeleteCountry(Guid id)
         {
-            CityQueue cityQueue = new CityQueue()
+            CountryQueue countryQueue = new CountryQueue()
             {
-                Id = id
+                Id = id,
+                TenantId = this.TenantId,
+                UserPerformingAction = this.UserId
             };
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()
             {
-                Data = JsonConvert.SerializeObject(cityQueue),
+                Data = JsonConvert.SerializeObject(countryQueue),
                 AddedById = this.UserId,
                 TenantId = this.TenantId,
                 Status = Data.Enums.ResultStatus.Waiting,
-                Type = Data.Enums.ProcessType.DeleteCity
+                Type = Data.Enums.ProcessType.DeleteCountry
             };
             await this.queueHandler.AddToQueue(processQueueHistory);
         }
+
     }
 }
