@@ -1,4 +1,5 @@
 ﻿using Data.Db;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,6 +11,7 @@ using Web.ViewModels;
 namespace Web.Controllers
 {
     [Route("api/cities")]
+    [Authorize]
     public class CitiesController : AuthController
     {
         public readonly ILogger<CitiesController> Logger;
@@ -25,6 +27,12 @@ namespace Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             List<CityVM> resultList = await this.CityService.GetAllCities();
+            return Ok(resultList);
+        }
+        [HttpGet("active")]
+        public async Task<IActionResult> GetAllActive()
+        {
+            List<CityVM> resultList = await this.CityService.GetAllAcitveCities();
             return Ok(resultList);
         }
 

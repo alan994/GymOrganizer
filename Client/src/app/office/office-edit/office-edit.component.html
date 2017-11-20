@@ -1,0 +1,32 @@
+<div class="row">
+    <form [formGroup]="officeForm">
+        <div class="form-group">
+            <label for="name" class="control-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" id="name">
+        </div>
+
+        <div class="form-group">
+            <label for="address" class="control-label">Address</label>
+            <input type="text" class="form-control" formControlName="address" id="address">
+        </div>
+
+        <div class="form-group">
+            <label for="cities" class="control-label">City</label>
+            <select formControlName="city" id="cities" required class="form-control">
+                <option [ngValue]="city" *ngFor="let city of cities | async">{{city.name}}</option>
+            </select>
+		</div>
+		
+		<div class="form-group">
+            <label for="active" class="control-label">Active</label>
+            <input type="checkbox" formControlName="active" class="form-control" id="active">
+        </div>
+
+		<p>{{officeForm.value | json}}</p>
+
+        <div class="row">
+            <button class="btn btn-default" *ngIf="!isEdit" (click)="add()">Add</button>
+            <button class="btn btn-default" *ngIf="isEdit" (click)="edit()">Save</button>
+        </div>
+    </form>
+</div>

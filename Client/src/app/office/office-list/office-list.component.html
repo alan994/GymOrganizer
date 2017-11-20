@@ -4,6 +4,8 @@
       <td>Id</td>
       <td>Name</td>
       <td>Address</td>
+      <td>City</td>
+      <td>Actions</td>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +13,13 @@
       <td>{{office.id}}</td>
       <td>{{office.name}}</td>
       <td>{{office.address}}</td>
+      <td>{{office.city.name}}</td>
+      <td>
+        <a [routerLink]="['/offices', office.id, 'edit']">Edit</a>
+        <a>Delete</a>
+      </td>
     </tr>
   </tbody>
 </table>
+<button class="btn btn-default" [routerLink]="['/offices', 'add']">Add</button>
+<router-outlet></router-outlet>

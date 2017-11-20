@@ -4,29 +4,29 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TermService {
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  getAllTerms() {
-    return this.http.get<Term[]>('/api/terms');
-  }
+	getAllTerms() {
+		return this.http.get<Term[]>('/api/terms');
+	}
 
-  getAllActiveTerms() {
-    return this.http.get<Term[]>('/api/terms/active');
-  }
+	getAllActiveTerms() {
+		return this.http.get<Term[]>('/api/terms/active');
+	}
 
-  getTermById(id: string) {
-    return this.http.get<Term>('/api/terms/' + id);
-  }
+	getTermById(id: string) {
+		return this.http.get<Term>('/api/terms/' + id);
+	}
 
-  addTerm(term: Term) {
-    return this.http.post('/api/terms', term);
-  }
+	addTerm(term: Term) {
+		return this.http.post('/api/terms', term).subscribe();
+	}
 
-  editTerm(term: Term) {
-    return this.http.put('/api/terms', term);
-  }
+	editTerm(term: Term) {
+		return this.http.put('/api/terms', term).subscribe();
+	}
 
-  deleteTerm(id: string) {
-    return this.http.delete('/api/terms/' + id);
-  }
+	deleteTerm(id: string) {
+		return this.http.delete('/api/terms/' + id).subscribe();
+	}
 }

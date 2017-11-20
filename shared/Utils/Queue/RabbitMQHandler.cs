@@ -1,6 +1,7 @@
 ﻿using Data.Db;
 using Data.Model;
 using Helper.Configuration;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Utils.Queue
                 var properties = channel.CreateBasicProperties();
                 properties.Persistent = true;
 
-                var body = Encoding.UTF8.GetBytes(request.Data);
+                var body = Encoding.UTF8.GetBytes(request.Id.ToString());
                 channel.BasicPublish(exchange: this._settings.RabbitMQ.Exchange, routingKey: routingKey, basicProperties: properties, body: body);
             }
         }

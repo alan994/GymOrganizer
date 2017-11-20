@@ -10,6 +10,7 @@ import { OAuthEvent } from 'angular-oauth2-oidc/events';
 import { AppState } from '../../store/app.reducers';
 import { Store } from '@ngrx/store';
 import * as AccountActions from '../../store/account/account.actions';
+import { SignalRService } from '../../services/utils/signalR.service';
 
 @Component({
 	selector: 'go-root',
@@ -51,7 +52,13 @@ export class AppComponent {
 	// 	// });
 	// }
 
-	constructor(vRef: ViewContainerRef, private oAuthService: OAuthService, private activatedRoute: ActivatedRoute, private logger: Logger, private router: Router, private store: Store<AppState>) {
+	constructor(vRef: ViewContainerRef,
+		private oAuthService: OAuthService,
+		private activatedRoute: ActivatedRoute,
+		private logger: Logger,
+		private router: Router,
+		private store: Store<AppState>,
+		private signalRService: SignalRService) {
 		this.configureWithNewConfigApi();
 		this.oAuthService.events.subscribe((e: OAuthEvent) => {
 			this.logger.debug('oauth/oidc event', e);
@@ -60,7 +67,7 @@ export class AppComponent {
 				//Needs to dispatch state for loading account state  in store after this effect needs to call saving account state in store as well redirect user to page
 			}
 		});
-		//this.signalRService.init();
+		this.signalRService.init();
 	}
 
 	private configureWithNewConfigApi() {

@@ -4,29 +4,29 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class OfficeService {
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  getAllOffices() {
-    return this.http.get<Office[]>('/api/offices');
-  }
+	getAllOffices() {
+		return this.http.get<Office[]>('/api/offices');
+	}
 
-  getAllActiveOffices() {
-    return this.http.get<Office[]>('/api/offices/active');
-  }
+	getAllActiveOffices() {
+		return this.http.get<Office[]>('/api/offices/active');
+	}
 
-  getOfficeById(id: string) {
-    return this.http.get<Office>('/api/offices/' + id);
-  }
+	getOfficeById(id: string) {
+		return this.http.get<Office>('/api/offices/' + id);
+	}
 
-  addOffice(office: Office) {
-    return this.http.post('/api/offices', office);
-  }
+	addOffice(office: Office) {
+		return this.http.post('/api/offices', office).subscribe();
+	}
 
-  editOffice(office: Office) {
-    return this.http.put('/api/offices', office);
-  }
+	editOffice(office: Office) {
+		return this.http.put('/api/offices', office).subscribe();
+	}
 
-  deleteOffice(id: string){
-    return this.http.delete('/api/offices/' + id);
-  }
+	deleteOffice(id: string) {
+		return this.http.delete('/api/offices/' + id).subscribe();
+	}
 }

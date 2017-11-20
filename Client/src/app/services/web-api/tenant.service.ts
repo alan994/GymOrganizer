@@ -4,29 +4,29 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TenantService {
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  getAllTenants() {
-    return this.http.get<Tenant[]>('/api/tenants');
-  }
+	getAllTenants() {
+		return this.http.get<Tenant[]>('/api/tenants');
+	}
 
-  getAllActiveTenants() {
-    return this.http.get<Tenant[]>('/api/tenants/active');
-  }
+	getAllActiveTenants() {
+		return this.http.get<Tenant[]>('/api/tenants/active');
+	}
 
-  getTenantById(id: string) {
-    return this.http.get<Tenant>('/api/tenants/' + id);
-  }
+	getTenantById(id: string) {
+		return this.http.get<Tenant>('/api/tenants/' + id);
+	}
 
-  addTenant(tenant: Tenant) {
-    return this.http.post('/api/tenants', tenant);
-  }
+	addTenant(tenant: Tenant) {
+		return this.http.post('/api/tenants', tenant).subscribe();
+	}
 
-  editTenant(tenant: Tenant) {
-    return this.http.put('/api/tenants', tenant);
-  }
+	editTenant(tenant: Tenant) {
+		return this.http.put('/api/tenants', tenant).subscribe();
+	}
 
-  deleteTenant(id: string) {
-    return this.http.delete('/api/tenants/' + id);
-  }
+	deleteTenant(id: string) {
+		return this.http.delete('/api/tenants/' + id).subscribe();
+	}
 }

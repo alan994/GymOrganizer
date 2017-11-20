@@ -9,7 +9,7 @@ using Web.ViewModels;
 
 namespace Web.Controllers
 {
-    [Route("api/cities")]
+    [Route("api/countries")]
     public class CountriesController : AuthController
     {
         public readonly ILogger<CountriesController> Logger;

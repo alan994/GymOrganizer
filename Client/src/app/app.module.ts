@@ -30,41 +30,53 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterEffects } from './store/router/router.effects';
 import { OfficeModule } from './office/office.module';
+import { AuthGuard } from './services/guards/auth-guard.service';
+import { CityModule } from './city/city.module';
+import { CityService } from './services/web-api/city.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SignalRService } from './services/utils/signalR.service';
+import { NotificationHelperService } from './services/utils/notification-helper.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-    LoadingComponent,
-    NavComponent,
-    UnauthorizedComponent,
-    WelcomeComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    HttpModule,
+	declarations: [
+		AppComponent,
+		NotFoundComponent,
+		LoadingComponent,
+		NavComponent,
+		UnauthorizedComponent,
+		WelcomeComponent
+	],
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		ReactiveFormsModule,
+		HttpModule,
 
-    SharedModule,
-    OAuthModule.forRoot(),
-    HomeModule,
-    OfficeModule,
-    ErrorModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AccountEffects, RouterEffects]),
-    StoreRouterConnectingModule,
-    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
+		SharedModule,
+		OAuthModule.forRoot(),
+		HomeModule,
+		OfficeModule,
+		CityModule,
+		ErrorModule,
+		StoreModule.forRoot(reducers),
+		EffectsModule.forRoot([AccountEffects, RouterEffects]),
+		StoreRouterConnectingModule,
+		!environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
 
-    AppRoutingModule
-  ],
-  providers: [
-    AccountService,
-    Logger,
-    { provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: WA18396Interceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent]
+		AppRoutingModule
+	],
+	providers: [
+		AccountService,
+		SignalRService,
+		AuthGuard,
+		NotificationHelperService,
+		Logger,
+		{ provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: WA18396Interceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+		CityService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

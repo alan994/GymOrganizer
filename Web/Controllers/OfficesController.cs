@@ -30,6 +30,13 @@ namespace Web.Controllers
             return Ok(resultList);
         }
 
+        [HttpGet("active")]
+        public async Task<IActionResult> GetAllActive()
+        {
+            List<OfficeVM> resultList = await this.OfficeService.GetAllActiveOffices();
+            return Ok(resultList);
+        }
+
 
         [HttpGet("{id}")]        
         public async Task<IActionResult> GetById(Guid id)

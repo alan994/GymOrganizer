@@ -4,29 +4,29 @@ import { Country } from '../../models/web-api/country';
 
 @Injectable()
 export class CountryService {
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  getAllCountries() {
-    return this.http.get<Country[]>('/api/countries');
-  }
+	getAllCountries() {
+		return this.http.get<Country[]>('/api/countries');
+	}
 
-  getAllActiveCountries() {
-    return this.http.get<Country[]>('/api/countries/active');
-  }
+	getAllActiveCountries() {
+		return this.http.get<Country[]>('/api/countries/active');
+	}
 
-  getCountryById(id: string) {
-    return this.http.get<Country>('/api/countries/' + id);
-  }
+	getCountryById(id: string) {
+		return this.http.get<Country>('/api/countries/' + id);
+	}
 
-  addCountry(country: Country) {
-    return this.http.post('/api/countries', country);
-  }
+	addCountry(country: Country) {
+		return this.http.post('/api/countries', country).subscribe();
+	}
 
-  editCountry(country: Country) {
-    return this.http.put('/api/countries', country);
-  }
+	editCountry(country: Country) {
+		return this.http.put('/api/countries', country).subscribe();
+	}
 
-  deleteCountry(id: string) {
-    return this.http.delete('/api/countries/' + id);
-  }
+	deleteCountry(id: string) {
+		return this.http.delete('/api/countries/' + id).subscribe();
+	}
 }
