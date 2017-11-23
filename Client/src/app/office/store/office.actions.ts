@@ -27,7 +27,7 @@ export class EditOffice implements Action {
 	constructor(public payload: Office) { }
 }
 
-export class DelteOffice implements Action {
+export class DeleteOffice implements Action {
 	readonly type = DELETE_OFFICE;
 	constructor(public payload: string) { }
 }
@@ -37,4 +37,4 @@ export class SaveGetOffices implements Action {
 	constructor(public payload: Office[]) { }
 }
 
-export type Actions = LoadGetOffices | SaveGetOffices | AddOffice | EditOffice | DelteOffice;
+export type Actions = LoadGetOffices | SaveGetOffices | AddOffice | EditOffice | DeleteOffice;

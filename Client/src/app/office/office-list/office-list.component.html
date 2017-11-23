@@ -15,8 +15,8 @@
       <td>{{office.address}}</td>
       <td>{{office.city.name}}</td>
       <td>
-        <a [routerLink]="['/offices', office.id, 'edit']">Edit</a>
-        <a>Delete</a>
+        <button class="btn btn-default" [routerLink]="['/offices', office.id, 'edit']">Edit</button>
+		<button class="btn btn-danger" (click)="deleteOffice(office)">Delete</button>
       </td>
     </tr>
   </tbody>

@@ -95,7 +95,9 @@ namespace Web.Services
         {
             OfficeQueue officeQueue = new OfficeQueue()
             {
-                Id = id
+                Id = id,
+                TenantId = this.TenantId,
+                UserPerformingAction = this.UserId
             };
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()

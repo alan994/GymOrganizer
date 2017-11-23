@@ -1,6 +1,6 @@
 <br /><br />
 <div class="row">
-	<form [formGroup]="officeForm">
+	<form [formGroup]="cityForm">
 		<div class="form-group">
 			<label for="id" class="control-label">Id</label>
 			<input type="text" class="form-control" formControlName="id" id="id" *ngIf="isEdit">
@@ -12,15 +12,15 @@
 		</div>
 
 		<div class="form-group">
-			<label for="address" class="control-label">Address</label>
-			<input type="text" class="form-control" formControlName="address" id="address">
+			<label for="postalCode" class="control-label">Postal code</label>
+			<input type="text" class="form-control" formControlName="postalCode" id="postalCode">
 		</div>
 
 		<div class="form-group">
-			<label for="cities" class="control-label">City</label>
-			<select formControlName="city" id="cities" required class="form-control">
-				<option [ngValue]="city" *ngFor="let city of cities | async" [attr.selected]="city.id === officeForm.value.city.id">
-					{{city.name}}
+			<label for="countries" class="control-label">Country</label>
+			<select formControlName="country" id="countries" required class="form-control">
+				<option [ngValue]="country" *ngFor="let country of countries | async" [attr.selected]="country.id === cityForm.value.country.id">
+					{{country.name}}
 				</option>
 			</select>
 		</div>
@@ -30,13 +30,13 @@
 			<input type="checkbox" formControlName="active" class="form-control" id="active">
 		</div>
 
-		<p>{{officeForm.value | json}}</p>
+		<p>{{cityForm.value | json}}</p>
 
 		<div class="row">
 			<button class="btn btn-default" *ngIf="!isEdit" (click)="add()">Add</button>
 			<button class="btn btn-default" *ngIf="isEdit" (click)="edit()">Save</button>
 			&nbsp;
-			<button class="btn btn-default" [routerLink]="['/offices']">Cancel</button>
+			<button class="btn btn-default" [routerLink]="['/cities']">Cancel</button>
 		</div>
 	</form>
 </div>

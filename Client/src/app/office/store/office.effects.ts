@@ -57,5 +57,19 @@ export class OfficeEffects {
 			this.logger.info('Editing office in progress');
 		});
 
+
+	@Effect({ dispatch: false })
+	deleteOffice = this.actions$
+		.ofType(OfficeActions.DELETE_OFFICE)
+		.map((action: OfficeActions.DeleteOffice) => {
+			return action.payload;
+		})
+		.map((payload: string) => {
+			return this.officeService.deleteOffice(payload);
+		})
+		.map(() => {
+			this.logger.info('Deleting office in progress');
+		});
+
 	constructor(private actions$: Actions, private router: Router, private officeService: OfficeService, private logger: Logger) { }
 }

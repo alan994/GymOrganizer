@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Logger } from '../../services/utils/log.service';
 import { Observable } from 'rxjs/Observable';
 import * as OfficeActions from '../store/office.actions';
+import { Office } from '../../models/web-api/office';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'go-office-edit',
@@ -17,6 +19,7 @@ import * as OfficeActions from '../store/office.actions';
 	styleUrls: ['./office-edit.component.scss']
 })
 export class OfficeEditComponent implements OnInit {
+	officeId: string;
 	cities: Observable<City[]>;
 	officeForm: FormGroup;
 	isEdit: boolean;
@@ -26,26 +29,43 @@ export class OfficeEditComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private logger: Logger
 	) {
-		this.isEdit = activatedRoute.snapshot.data.isEdit;
+		this.store.dispatch(new CityActions.LoadGetCities());
+
 		this.officeForm = this.formBuilder.group(
 			{
+				id: [{ value: '', disabled: true }, Validators.required],
 				name: ['', Validators.required],
 				address: ['', Validators.required],
 				city: ['', Validators.required],
 				active: true
 			}
 		);
+		activatedRoute.data.subscribe(data => { this.isEdit = data.isEdit; this.update(); });
+		activatedRoute.params.subscribe(params => { this.officeId = params.officeId; this.update(); });
 	}
 
 	ngOnInit() {
-		this.store.dispatch(new CityActions.LoadGetCities());
 		this.cities = this.store.select(s => s.cityReducer.cities);
+	}
 
-		this.officeForm.patchValue({
-			name: 'Zaprešić',
-			address: 'neka adresa'
-		});
-
+	update() {
+		if (this.officeId) {
+			this.store.select(x => x.officeReducer.offices)
+				.take(1)
+				.map((offices: Office[]) => {
+					return _.find(offices, o => o.id === this.officeId);
+				})
+				.subscribe((office: Office) => {
+					//Handle cities
+					this.officeForm.patchValue({
+						id: this.officeId,
+						name: office.name,
+						address: office.address,
+						city: office.city,
+						active: office.active
+					});
+				});
+		}
 	}
 
 	add() {
