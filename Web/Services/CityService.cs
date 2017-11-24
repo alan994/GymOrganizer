@@ -89,7 +89,9 @@ namespace Web.Services
         {
             CityQueue cityQueue = new CityQueue()
             {
-                Id = id
+                Id = id,
+                TenantId = this.TenantId,
+                UserPerformingAction = this.UserId
             };
 
             ProcessQueueHistory processQueueHistory = new ProcessQueueHistory()

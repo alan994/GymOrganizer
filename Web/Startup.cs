@@ -51,6 +51,8 @@ namespace Web
             services.AddScoped<ExceptionFilter>();
             services.AddTransient(typeof(OfficeService));
             services.AddTransient(typeof(CityService));
+            services.AddTransient(typeof(CountryService));
+            services.AddTransient(typeof(TermService));            
             services.AddTransient<IQueueHandler, RabbitMQHandler>();
             #endregion
 

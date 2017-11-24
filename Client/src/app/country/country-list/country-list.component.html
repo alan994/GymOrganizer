@@ -1,3 +1,27 @@
-<p>
-  country-list works!
-</p>
+<table class="table">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td>Name</td>			
+			<td>Iso 2 code</td>
+			<td>Iso 3 code</td>
+			<td>Numeric code</td>
+			<td>Actions</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let country of (countries | async)">
+			<td>{{country.id}}</td>
+			<td>{{country.name}}</td>
+			<td>{{country.iso2Code}}</td>
+			<td>{{country.iso3Code}}</td>
+			<td>{{country.numericCode}}</td>
+			<td>
+				<button class="btn btn-default" [routerLink]="['/countries', country.id, 'edit']">Edit</button>
+				<button class="btn btn-danger" (click)="deleteCountry(country)">Delete</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<button class="btn btn-default" [routerLink]="['/countries', 'add']">Add</button>
+<router-outlet></router-outlet>

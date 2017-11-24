@@ -16,7 +16,7 @@ export function officeReducer(state: State = initialState, action: CountryAction
 		case CountryActions.SAVE_GET_COUNTRIES:
 			return {
 				...state,
-				cities: action.payload
+				countries: action.payload
 			};
 		default:
 			return state;

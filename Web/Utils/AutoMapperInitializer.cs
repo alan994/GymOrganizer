@@ -10,7 +10,6 @@ namespace Web.Utils
         public static void Initialize()
         {
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<CountryVM, Country>().ReverseMap();
 
                 #region Office
                 cfg.CreateMap<OfficeVM, Office>().ReverseMap();
@@ -25,6 +24,14 @@ namespace Web.Utils
                 cfg.CreateMap<CityVM, City>().ReverseMap();
                 cfg.CreateMap<CityVM, CityQueue>()
                 .ForMember(dest => dest.CountryId, options => options.MapFrom(x => x.Country.Id))
+                .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())
+                .ForMember(dest => dest.TenantId, options => options.Ignore())
+                .ReverseMap();
+                #endregion
+
+                #region City
+                cfg.CreateMap<CountryVM, Country>().ReverseMap();                
+                cfg.CreateMap<CountryVM, CountryQueue>()                
                 .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())
                 .ForMember(dest => dest.TenantId, options => options.Ignore())
                 .ReverseMap();

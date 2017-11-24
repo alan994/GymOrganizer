@@ -9,11 +9,22 @@ namespace Web.ViewModels
 {
     public class TenantVM
     {        
-        public Guid Id { get; set; }        
+        public Guid? Id { get; set; }        
         public string Name { get; set; }
         
         public string Settings { get; set; }
         public TenantConfiguration Configuration { get; set; }
         public ExistenceStatus Status { get; set; }
+        public bool Active
+        {
+            get
+            {
+                return this.Status == ExistenceStatus.Active;
+            }
+            set
+            {
+                this.Status = value ? ExistenceStatus.Active : ExistenceStatus.Deactivated;
+            }
+        }
     }
 }

@@ -5,11 +5,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { CityEffects } from './store/city.effects';
 import { CityEditComponent } from './city-edit/city-edit.component';
 import { CityRoutingModule } from './city-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
+		ReactiveFormsModule,
 		EffectsModule.forFeature([CityEffects]),
 		CityRoutingModule
 	],

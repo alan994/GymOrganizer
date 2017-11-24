@@ -1,26 +1,25 @@
 <table class="table">
-		<thead>
-		  <tr>
+	<thead>
+		<tr>
 			<td>Id</td>
 			<td>Name</td>
 			<td>PostalCode</td>
 			<td>Country</td>
 			<td>Actions</td>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr *ngFor="let city of (cities | async)">
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let city of (cities | async)">
 			<td>{{city.id}}</td>
 			<td>{{city.name}}</td>
 			<td>{{city.postalCode}}</td>
 			<td>{{city.country.name}}</td>
 			<td>
-			  <button class="btn btn-default" [routerLink]="['/cities', city.id, 'edit']">Edit</button>
-			  <button class="btn btn-danger" (click)="deleteCity(city)">Delete</button>
+				<button class="btn btn-default" [routerLink]="['/cities', city.id, 'edit']">Edit</button>
+				<button class="btn btn-danger" (click)="deleteCity(city)">Delete</button>
 			</td>
-		  </tr>
-		</tbody>
-	  </table>
-	  <button class="btn btn-default" [routerLink]="['/cities', 'add']">Add</button>
-	  <router-outlet></router-outlet>
-	  
+		</tr>
+	</tbody>
+</table>
+<button class="btn btn-default" [routerLink]="['/cities', 'add']">Add</button>
+<router-outlet></router-outlet>

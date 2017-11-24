@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 
 import * as CityActions from '../../city/store/city.actions';
 import * as OfficeActions from '../../office/store/office.actions';
+import * as CountryActions from '../../country/store/country.actions';
 
 @Injectable()
 export class NotificationHelperService {
@@ -15,47 +16,50 @@ export class NotificationHelperService {
 		switch (response.processType) {
 			//#region City
 			case ProcessType.AddCity:
-			this.store.dispatch(new CityActions.LoadGetCities());
-			break;
+				this.store.dispatch(new CityActions.LoadGetCities());
+				break;
 			case ProcessType.EditCity:
-			this.store.dispatch(new CityActions.LoadGetCities());
-			break;
+				this.store.dispatch(new CityActions.LoadGetCities());
+				break;
 			case ProcessType.DeleteCity:
-			this.store.dispatch(new CityActions.LoadGetCities());
-			break;
+				this.store.dispatch(new CityActions.LoadGetCities());
+				break;
 			//#endregion
 			//#region Country
 			case ProcessType.AddCountry:
-			break;
+				this.store.dispatch(new CountryActions.LoadGetCountries());
+				break;
 			case ProcessType.EditCountry:
-			break;
+				this.store.dispatch(new CountryActions.LoadGetCountries());
+				break;
 			case ProcessType.DeleteCountry:
-			break;
+				this.store.dispatch(new CountryActions.LoadGetCountries());
+				break;
 			//#endregion
 			//#region Office
 			case ProcessType.AddOffice:
-			this.store.dispatch(new OfficeActions.LoadGetOffices());
-			break;
+				this.store.dispatch(new OfficeActions.LoadGetOffices());
+				break;
 			case ProcessType.EditOffice:
-			this.store.dispatch(new OfficeActions.LoadGetOffices());
-			break;
+				this.store.dispatch(new OfficeActions.LoadGetOffices());
+				break;
 			case ProcessType.DeleteOffice:
-			this.store.dispatch(new OfficeActions.LoadGetOffices());
-			break;
+				this.store.dispatch(new OfficeActions.LoadGetOffices());
+				break;
 			//#endregion
 			//#region Term
 			case ProcessType.AddTerm:
-			break;
+				break;
 			case ProcessType.EditTerm:
-			break;
+				break;
 			case ProcessType.DeleteTerm:
-			break;
+				break;
 			//#endregion
 			//#region Tenant
 			case ProcessType.AddTenant:
-			break;
+				break;
 			case ProcessType.EditTenant:
-			break;
+				break;
 			//#endregion
 		}
 	}

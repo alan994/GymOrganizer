@@ -8,7 +8,7 @@ namespace Web.ViewModels
 {
     public class TermVM
     {
-        public Guid Id { get; set; }        
+        public Guid? Id { get; set; }        
         public DateTime Start { get; set; }        
         public DateTime End { get; set; }
         public int Capacity { get; set; }        
@@ -17,5 +17,16 @@ namespace Web.ViewModels
         public OfficeVM Office { get; set; }
         public ExistenceStatus Status { get; set; }
         public UserVM Coach { get; set; }
+        public bool Active
+        {
+            get
+            {
+                return this.Status == ExistenceStatus.Active;
+            }
+            set
+            {
+                this.Status = value ? ExistenceStatus.Active : ExistenceStatus.Deactivated;
+            }
+        }
     }
 }

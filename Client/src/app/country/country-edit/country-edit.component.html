@@ -1,3 +1,44 @@
-<p>
-  country-edit works!
-</p>
+<br /><br />
+<div class="row">
+	<form [formGroup]="countryForm">
+		<div class="form-group" *ngIf="isEdit">
+			<label for="id" class="control-label">Id</label>
+			<input type="text" class="form-control" formControlName="id" disabled id="id">
+		</div>
+
+		<div class="form-group">
+			<label for="name" class="control-label">Name</label>
+			<input type="text" class="form-control" formControlName="name" id="name">
+		</div>
+
+		<div class="form-group">
+			<label for="iso2Code" class="control-label">Iso 2 code</label>
+			<input type="text" class="form-control" formControlName="iso2Code" id="iso2Code">
+		</div>
+
+		<div class="form-group">
+			<label for="iso3Code" class="control-label">Iso 3 code</label>
+			<input type="text" class="form-control" formControlName="iso3Code" id="iso3Code">
+		</div>
+
+		<div class="form-group">
+			<label for="numericCode" class="control-label">Numeric code</label>
+			<input type="text" class="form-control" formControlName="numericCode" id="numericCode">
+		</div>
+	
+
+		<div class="form-group">
+			<label for="active" class="control-label">Active</label>
+			<input type="checkbox" formControlName="active" class="form-control" id="active">
+		</div>
+
+		<p>{{countryForm.value | json}}</p>
+
+		<div class="row">
+			<button class="btn btn-default" [disabled]="!countryForm.valid" *ngIf="!isEdit" (click)="add()">Add</button>
+			<button class="btn btn-default" [disabled]="!countryForm.valid" *ngIf="isEdit" (click)="edit()">Save</button>
+			&nbsp;
+			<button class="btn btn-default" [routerLink]="['/countries']">Cancel</button>
+		</div>
+	</form>
+</div>

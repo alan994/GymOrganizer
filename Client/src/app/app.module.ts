@@ -36,6 +36,8 @@ import { CityService } from './services/web-api/city.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignalRService } from './services/utils/signalR.service';
 import { NotificationHelperService } from './services/utils/notification-helper.service';
+import { CountryModule } from './country/country.module';
+import { CountryService } from './services/web-api/country.service';
 
 @NgModule({
 	declarations: [
@@ -57,6 +59,7 @@ import { NotificationHelperService } from './services/utils/notification-helper.
 		HomeModule,
 		OfficeModule,
 		CityModule,
+		CountryModule,
 		ErrorModule,
 		StoreModule.forRoot(reducers),
 		EffectsModule.forRoot([AccountEffects, RouterEffects]),
@@ -75,7 +78,8 @@ import { NotificationHelperService } from './services/utils/notification-helper.
 		{ provide: HTTP_INTERCEPTORS, useClass: WA18396Interceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-		CityService
+		CityService,
+		CountryService
 	],
 	bootstrap: [AppComponent]
 })

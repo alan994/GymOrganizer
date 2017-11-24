@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core/src/metadata/ng_module';
-import { Route } from '@angular/compiler/src/core';
-import { Routes } from '@angular/router/src/config';
-import { RouterModule } from '@angular/router/src/router_module';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { NavComponent } from '../components/nav/nav.component';
 import { AuthGuard } from '../services/guards/auth-guard.service';
 import { CountryListComponent } from './country-list/country-list.component';
@@ -46,4 +44,4 @@ const routes: Routes = [
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule]
 })
-export class CountyRoutingModule { }
+export class CountryRoutingModule { }

@@ -32,10 +32,10 @@ export class CityEditComponent implements OnInit {
 
 		this.store.dispatch(new CountryActions.LoadGetCountries());
 		this.cityForm = this.formBuilder.group({
-			id: [{ value: '', disabled: true }, Validators.required],
-			name: ['', Validators.required],
-			postalCode: ['', Validators.required],
-			country: ['', Validators.required],
+			id: [null],
+			name: [null, Validators.required],
+			postalCode: [null, Validators.required],
+			country: [null, Validators.required],
 			active: true
 		});
 
@@ -52,7 +52,7 @@ export class CityEditComponent implements OnInit {
 				})
 				.subscribe((city: City) => {
 					//Handle form
-					this.cityForm.patchValue({
+					this.cityForm.setValue({
 						id: this.cityId,
 						name: city.name,
 						postalCode: city.postalCode,
@@ -64,7 +64,16 @@ export class CityEditComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.store.select(s => s.countryReducer.countries);
+		this.countries = this.store.select(s => s.countryReducer.countries);
 	}
 
+	add() {
+		this.store.dispatch(new CityActions.AddCity(this.cityForm.value));
+		this.logger.info('Add: ', this.cityForm.value, this.cityForm);
+	}
+
+	edit() {
+		this.store.dispatch(new CityActions.EditCity(this.cityForm.value));
+		this.logger.info('Edit: ', this.cityForm.value, this.cityForm);
+	}
 }

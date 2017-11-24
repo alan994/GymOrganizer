@@ -33,10 +33,10 @@ export class OfficeEditComponent implements OnInit {
 
 		this.officeForm = this.formBuilder.group(
 			{
-				id: [{ value: '', disabled: true }, Validators.required],
-				name: ['', Validators.required],
-				address: ['', Validators.required],
-				city: ['', Validators.required],
+				id: [null],
+				name: [null, Validators.required],
+				address: [null, Validators.required],
+				city: [null, Validators.required],
 				active: true
 			}
 		);
