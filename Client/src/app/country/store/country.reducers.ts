@@ -11,7 +11,7 @@ const initialState: State = {
 	countries: []
 };
 
-export function officeReducer(state: State = initialState, action: CountryActions.Actions) {
+export function countryReducer(state: State = initialState, action: CountryActions.Actions) {
 	switch (action.type) {
 		case CountryActions.SAVE_GET_COUNTRIES:
 			return {

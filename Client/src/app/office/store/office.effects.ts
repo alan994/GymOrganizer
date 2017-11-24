@@ -19,7 +19,7 @@ export class OfficeEffects {
 		.ofType(OfficeActions.LOAD_GET_OFFICES)
 		.pipe(
 		switchMap(() => {
-			return this.officeService.getAllActiveOffices();
+			return this.officeService.getAllOffices();
 		}),
 		mergeMap((account: any) => {
 			return [

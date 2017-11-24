@@ -18,7 +18,7 @@ export class CountryEffects {
 		.ofType(CountryActions.LOAD_GET_COUNTRIES)
 		.pipe(
 		switchMap(() => {
-			return this.countryService.getAllActiveCountries();
+			return this.countryService.getAllCountries();
 		}),
 		mergeMap((Countries: Country[]) => {
 			return [

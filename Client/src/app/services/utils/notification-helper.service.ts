@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import * as CityActions from '../../city/store/city.actions';
 import * as OfficeActions from '../../office/store/office.actions';
 import * as CountryActions from '../../country/store/country.actions';
+import * as TenantActions from '../../tenant/store/tenant.actions';
 
 @Injectable()
 export class NotificationHelperService {
@@ -57,8 +58,10 @@ export class NotificationHelperService {
 			//#endregion
 			//#region Tenant
 			case ProcessType.AddTenant:
+				this.store.dispatch(new TenantActions.LoadGetTenants());
 				break;
 			case ProcessType.EditTenant:
+				this.store.dispatch(new TenantActions.LoadGetTenants());
 				break;
 			//#endregion
 		}

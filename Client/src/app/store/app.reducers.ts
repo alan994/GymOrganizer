@@ -5,6 +5,7 @@ import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import * as fromOffice from '../office/store/office.reducers';
 import * as fromCity from '../city/store/city.reducers';
 import * as fromCountry from '../country/store/country.reducers';
+import * as fromTenant from '../tenant/store/tenant.reducers';
 
 export interface AppState {
 	notificationState: fromNotifications.State;
@@ -13,6 +14,7 @@ export interface AppState {
 	officeReducer: fromOffice.State;
 	cityReducer: fromCity.State;
 	countryReducer: fromCountry.State;
+	tenantReducer: fromTenant.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -20,6 +22,7 @@ export const reducers: ActionReducerMap<AppState> = {
 	accountState: fromAccount.bookReducer,
 	routerReducer: routerReducer,
 	officeReducer: fromOffice.officeReducer,
-	cityReducer: fromCity.officeReducer,
-	countryReducer: fromCountry.officeReducer
+	cityReducer: fromCity.cityReducer,
+	countryReducer: fromCountry.countryReducer,
+	tenantReducer: fromTenant.tenantReducer
 };

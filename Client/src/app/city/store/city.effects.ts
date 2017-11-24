@@ -18,7 +18,7 @@ export class CityEffects {
 		.ofType(CityActions.LOAD_GET_CITIES)
 		.pipe(
 		switchMap(() => {
-			return this.cityService.getAllActiveCities();
+			return this.cityService.getAllCities();
 		}),
 		mergeMap((cities: City[]) => {
 			return [

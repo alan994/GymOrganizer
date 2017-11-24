@@ -36,6 +36,14 @@ namespace Web.Utils
                 .ForMember(dest => dest.TenantId, options => options.Ignore())
                 .ReverseMap();
                 #endregion
+
+                #region City
+                cfg.CreateMap<TenantVM, Tenant>().ReverseMap();
+                cfg.CreateMap<TenantVM, TenantQueue>()
+                .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())
+                .ForMember(dest => dest.TenantId, options => options.Ignore())
+                .ReverseMap();
+                #endregion
             });
         }
     }

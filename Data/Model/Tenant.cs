@@ -15,8 +15,7 @@ namespace Data.Model
         public Guid Id { get; set; }
         [Required]
         [StringLength(255)]
-        public string Name { get; set; }
-        [Required]
+        public string Name { get; set; }        
         public string Settings { get; set; }
         public ExistenceStatus Status { get; set; }
         [NotMapped]
@@ -24,6 +23,11 @@ namespace Data.Model
         {
             get
             {
+                if (string.IsNullOrEmpty(this.Settings))
+                {
+                    return null;
+                }
+
                 return JsonConvert.DeserializeObject<TenantConfiguration>(this.Settings);
             }
         }

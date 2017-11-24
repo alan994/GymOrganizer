@@ -11,7 +11,7 @@ const initialState: State = {
 	cities: []
 };
 
-export function officeReducer(state: State = initialState, action: CityActions.Actions) {
+export function cityReducer(state: State = initialState, action: CityActions.Actions) {
 	switch (action.type) {
 		case CityActions.SAVE_GET_CITIES:
 			return {

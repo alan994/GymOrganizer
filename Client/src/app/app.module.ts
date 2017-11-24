@@ -38,6 +38,8 @@ import { SignalRService } from './services/utils/signalR.service';
 import { NotificationHelperService } from './services/utils/notification-helper.service';
 import { CountryModule } from './country/country.module';
 import { CountryService } from './services/web-api/country.service';
+import { TenantModule } from './tenant/tenant.module';
+import { TenantService } from './services/web-api/tenant.service';
 
 @NgModule({
 	declarations: [
@@ -61,6 +63,7 @@ import { CountryService } from './services/web-api/country.service';
 		CityModule,
 		CountryModule,
 		ErrorModule,
+		TenantModule,
 		StoreModule.forRoot(reducers),
 		EffectsModule.forRoot([AccountEffects, RouterEffects]),
 		StoreRouterConnectingModule,
@@ -79,7 +82,8 @@ import { CountryService } from './services/web-api/country.service';
 		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 		CityService,
-		CountryService
+		CountryService,
+		TenantService
 	],
 	bootstrap: [AppComponent]
 })
