@@ -5,21 +5,21 @@ import { Account } from '../../models/web-api/account';
 import { Office } from '../../models/web-api/office';
 
 export interface State {
-  offices: Office[];
+	offices: Office[];
 }
 
 const initialState: State = {
-  offices: []
+	offices: []
 };
 
 export function officeReducer(state: State = initialState, action: OfficeActions.Actions) {
-  switch (action.type) {
-    case OfficeActions.SAVE_GET_OFFICES:
-      return {
-        ...state,
-        offices: action.payload
-      };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case OfficeActions.SAVE_GET_OFFICES:
+			return {
+				...state,
+				offices: action.payload
+			};
+		default:
+			return state;
+	}
 }

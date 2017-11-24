@@ -40,6 +40,10 @@ import { CountryModule } from './country/country.module';
 import { CountryService } from './services/web-api/country.service';
 import { TenantModule } from './tenant/tenant.module';
 import { TenantService } from './services/web-api/tenant.service';
+import { UserService } from './services/web-api/User.service';
+import { TermService } from './services/web-api/term.service';
+import { TermModule } from './term/term.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
 	declarations: [
@@ -62,6 +66,8 @@ import { TenantService } from './services/web-api/tenant.service';
 		OfficeModule,
 		CityModule,
 		CountryModule,
+		UserModule,
+		TermModule,
 		ErrorModule,
 		TenantModule,
 		StoreModule.forRoot(reducers),
@@ -83,7 +89,9 @@ import { TenantService } from './services/web-api/tenant.service';
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 		CityService,
 		CountryService,
-		TenantService
+		TenantService,
+		UserService,
+		TermService
 	],
 	bootstrap: [AppComponent]
 })

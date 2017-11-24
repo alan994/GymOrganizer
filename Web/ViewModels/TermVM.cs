@@ -16,6 +16,7 @@ namespace Web.ViewModels
         
         public OfficeVM Office { get; set; }
         public ExistenceStatus Status { get; set; }
+        public decimal Price { get; set; }
         public UserVM Coach { get; set; }
         public bool Active
         {

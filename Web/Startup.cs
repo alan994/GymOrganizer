@@ -54,6 +54,7 @@ namespace Web
             services.AddTransient(typeof(CountryService));
             services.AddTransient(typeof(TermService));
             services.AddTransient(typeof(TenantService));
+            services.AddTransient(typeof(UserService));
             services.AddTransient<IQueueHandler, RabbitMQHandler>();
             #endregion
 

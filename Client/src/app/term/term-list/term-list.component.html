@@ -1,0 +1,33 @@
+<table class="table">
+	<thead>
+	  <tr>
+		<td>Id</td>
+		<td>Start</td>
+		<td>End</td>
+		<td>Capacity</td>
+		<td>Office</td>
+		<td>Coach</td>
+		<td>Perice</td>
+		<td>Actions</td>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr *ngFor="let term of (terms | async)">
+		<td>{{term.id}}</td>
+		<td>{{term.name}}</td>
+		<td>{{term.start | date}}</td>
+		<td>{{term.end | date}}</td>
+		<td>{{term.capacity}}</td>
+		<td>{{term.office.name}}</td>
+		<td>{{term.coach.displayName}}</td>
+		<td>{{term.price | number}}</td>
+		<td>
+		  <button class="btn btn-default" [routerLink]="['/terms', term.id, 'edit']">Edit</button>
+		  <button class="btn btn-danger" (click)="deleteTerm(term)">Delete</button>
+		</td>
+	  </tr>
+	</tbody>
+  </table>
+  <button class="btn btn-default" [routerLink]="['/terms', 'add']">Add</button>
+  <router-outlet></router-outlet>
+  

@@ -1,0 +1,60 @@
+<br />
+<br />
+<div class="row">
+	<form [formGroup]="officeForm">
+		<div class="form-group">
+			<label for="id" class="control-label">Id</label>
+			<input type="text" class="form-control" formControlName="id" id="id" *ngIf="isEdit">
+		</div>
+
+		<div class="form-group">
+			<label for="start" class="control-label">Start</label>
+			<input type="datetime" class="form-control" formControlName="start" id="start">
+		</div>
+
+		<div class="form-group">
+			<label for="end" class="control-label">End</label>
+			<input type="datetime" class="form-control" formControlName="end" id="end">
+		</div>
+
+		<div class="form-group">
+			<label for="intensityLevel" class="control-label">Intensity level</label>
+			<input type="radio" class="form-control" formControlName="intensityLevel" id="intensityLevel" [value]="intensityLevel.biginer"> Beginer
+			<input type="radio" class="form-control" formControlName="intensityLevel" id="intensityLevel" [value]="intensityLevel.normal"> Normal
+			<input type="radio" class="form-control" formControlName="intensityLevel" id="intensityLevel" [value]="intensityLevel.pro"> Pro
+		</div>
+
+		<div class="form-group">
+			<label for="capacity" class="control-label">Capacity</label>
+			<input type="number" class="form-control" formControlName="capacity" id="capacity">
+		</div>
+
+		<div class="form-group">
+			<label for="price" class="control-label">Price</label>
+			<input type="number" class="form-control" formControlName="price" id="price">
+		</div>
+
+		<div class="form-group">
+			<label for="coach" class="control-label">Coach</label>
+			<select formControlName="coach" id="coach" required class="form-control">
+				<option [ngValue]="coach" *ngFor="let coach of coaches | async" [attr.selected]="termForm.value.coach && coach && coach.id === termForm.value.coach.id">
+					{{coach.displayName}}
+				</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="active" class="control-label">Active</label>
+			<input type="checkbox" formControlName="active" class="form-control" id="active">
+		</div>
+
+		<p>{{termForm.value | json}}</p>
+
+		<div class="row">
+			<button class="btn btn-default" [disabled]="!termForm.valid" *ngIf="!isEdit" (click)="add()">Add</button>
+			<button class="btn btn-default" [disabled]="!termForm.valid" *ngIf="isEdit" (click)="edit()">Save</button>
+			&nbsp;
+			<button class="btn btn-default" [routerLink]="['/terms']">Cancel</button>
+		</div>
+	</form>
+</div>

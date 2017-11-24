@@ -29,7 +29,7 @@ namespace Web.Utils
                 .ReverseMap();
                 #endregion
 
-                #region City
+                #region Country
                 cfg.CreateMap<CountryVM, Country>().ReverseMap();                
                 cfg.CreateMap<CountryVM, CountryQueue>()                
                 .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())
@@ -37,9 +37,17 @@ namespace Web.Utils
                 .ReverseMap();
                 #endregion
 
-                #region City
+                #region Tenant
                 cfg.CreateMap<TenantVM, Tenant>().ReverseMap();
                 cfg.CreateMap<TenantVM, TenantQueue>()
+                .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())
+                .ForMember(dest => dest.TenantId, options => options.Ignore())
+                .ReverseMap();
+                #endregion
+
+                #region Tenant
+                cfg.CreateMap<UserVM, User>().ReverseMap();
+                cfg.CreateMap<UserVM, UserQueue>()
                 .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())
                 .ForMember(dest => dest.TenantId, options => options.Ignore())
                 .ReverseMap();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Data.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,5 +14,6 @@ namespace Data.Model
         public Guid TenantId { get; set; }
 
         public virtual Tenant Tenant { get; set; }
+        public ExistenceStatus Status { get; set; }
     }
 }
