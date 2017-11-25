@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
-import * as TermActions from './Term.actions';
+import * as TermActions from './term.actions';
 import { Account } from '../../models/web-api/account';
-import { Term } from '../../models/web-api/Term';
+import { Term } from '../../models/web-api/term';
 
 export interface State {
 	terms: Term[];

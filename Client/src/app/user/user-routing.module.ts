@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserListComponent } from './User-list/User-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 import { AuthGuard } from '../services/guards/auth-guard.service';
 import { NavComponent } from '../components/nav/nav.component';
-import { UserEditComponent } from './User-edit/User-edit.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { ApplicationRoleNames } from '../models/config/ApplicationRoleNames';
+import { RoleGuard } from '../services/guards/role-guard.service';
 
 const routes: Routes = [
 	{
 		path: 'users',
-		canActivate: [AuthGuard],
+		canActivate: [AuthGuard, RoleGuard],
 		children: [
 			{
 				path: '',
@@ -18,14 +20,16 @@ const routes: Routes = [
 						path: 'add',
 						component: UserEditComponent,
 						data: {
-							isEdit: false
+							isEdit: false,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					},
 					{
 						path: ':userId/edit',
 						component: UserEditComponent,
 						data: {
-							isEdit: true
+							isEdit: true,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					}
 				]
@@ -35,7 +39,10 @@ const routes: Routes = [
 				component: NavComponent,
 				outlet: 'nav'
 			}
-		]
+		],
+		data: {
+			roles: [ApplicationRoleNames.ADMINISTRATOR]
+		}
 	}
 ];
 

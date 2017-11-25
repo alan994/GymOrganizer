@@ -12,5 +12,8 @@ export enum ProcessType {
 	EditTerm = 11,
 	DeleteTerm = 12,
 	AddTenant = 13,
-	EditTenant = 14
+	EditTenant = 14,
+	AddUser = 15,
+	EditUser = 16,
+	DeleteUser = 17
 }

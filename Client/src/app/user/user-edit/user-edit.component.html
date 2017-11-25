@@ -1,3 +1,69 @@
-<p>
-  user-edit works!
-</p>
+<br />
+<br />
+<div class="row">
+	<form [formGroup]="userForm">
+		<div class="form-group">
+			<label for="id" class="control-label">Id</label>
+			<input type="text" class="form-control" formControlName="id" id="id" *ngIf="isEdit">
+		</div>
+
+		<div class="form-group">
+			<label for="firstName" class="control-label">First name</label>
+			<input type="text" class="form-control" formControlName="firstName" id="firstName">
+		</div>
+
+		<div class="form-group">
+			<label for="lastName" class="control-label">Last name</label>
+			<input type="text" class="form-control" formControlName="lastName" id="lastName">
+		</div>
+
+		<div class="form-group">
+			<label for="email" class="control-label">Email</label>
+			<input type="text" class="form-control" formControlName="email" id="email">
+		</div>
+
+		<div class="form-group">
+			<label for="owed" class="control-label">Owed</label>
+			<input type="number" class="form-control" formControlName="owed" id="owed">
+		</div>
+
+		<div class="form-group">
+			<label for="claimed" class="control-label">Claimed</label>
+			<input type="number" class="form-control" formControlName="claimed" id="claimed">
+		</div>
+
+		<div class="form-group">
+			<label for="active" class="control-label">Active</label>
+			<input type="checkbox" formControlName="active" class="form-control" id="active">
+		</div>
+
+		<div class="form-group" *ngIf="!isEdit">
+			<label for="tempPassword" class="control-label">Temp password</label>
+			<input type="text" formControlName="tempPassword" class="form-control" id="tempPassword">
+		</div>
+
+		<p>Applications roles:</p>
+		<hr>
+		<div class="form-group">
+			<label for="isAdmin" class="control-label">Admin</label>
+			<input type="checkbox" class="form-control" formControlName="isAdmin" id="isAdmin">
+		</div>
+
+		<div class="form-group">
+			<label for="isCoach" class="control-label">Coach</label>
+			<input type="checkbox" class="form-control" formControlName="isCoach" id="isCoach">
+		</div>
+
+		<div class="form-group" *ngIf="(account | async).user.isGlobalAdmin">
+			<label for="isGlobalAdmin" class="control-label">Global admin</label>
+			<input type="checkbox" class="form-control" formControlName="isGlobalAdmin" id="isGlobalAdmin">
+		</div>
+
+		<div class="row">
+			<button class="btn btn-default" [disabled]="!userForm.valid" *ngIf="!isEdit" (click)="add()">Add</button>
+			<button class="btn btn-default" [disabled]="!userForm.valid" *ngIf="isEdit" (click)="edit()">Save</button>
+			&nbsp;
+			<button class="btn btn-default" [routerLink]="['/users']">Cancel</button>
+		</div>
+	</form>
+</div>

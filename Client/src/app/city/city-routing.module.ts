@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 import { NavComponent } from '../components/nav/nav.component';
 import { AuthGuard } from '../services/guards/auth-guard.service';
 import { CityEditComponent } from './city-edit/city-edit.component';
+import { ApplicationRoleNames } from '../models/config/ApplicationRoleNames';
+import { RoleGuard } from '../services/guards/role-guard.service';
 
 const routes: Routes = [
 	{
 		path: 'cities',
-		canActivate: [AuthGuard],
+		canActivate: [AuthGuard, RoleGuard],
 		children: [
 			{
 				path: '',
@@ -19,14 +21,16 @@ const routes: Routes = [
 						path: 'add',
 						component: CityEditComponent,
 						data: {
-							isEdit: false
+							isEdit: false,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					},
 					{
 						path: ':cityId/edit',
 						component: CityEditComponent,
 						data: {
-							isEdit: true
+							isEdit: true,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					}
 				]
@@ -36,7 +40,10 @@ const routes: Routes = [
 				component: NavComponent,
 				outlet: 'nav'
 			},
-		]
+		],
+		data: {
+			roles: [ApplicationRoleNames.ADMINISTRATOR]
+		}
 	}
 ];
 

@@ -5,11 +5,10 @@ import { mergeMap } from 'rxjs/operators/mergeMap';
 import { switchMap } from 'rxjs/operators/switchMap';
 
 import { Effect, Actions } from '@ngrx/effects';
-import * as RouterActions from '../../store/router/router.actions';
-import * as TermActions from './Term.actions';
-import { TermService } from '../../services/web-api/Term.service';
+import * as TermActions from './term.actions';
+import { TermService } from '../../services/web-api/term.service';
 
-import { Term } from '../../models/web-api/Term';
+import { Term } from '../../models/web-api/term';
 import { Logger } from '../../services/utils/log.service';
 
 @Injectable()

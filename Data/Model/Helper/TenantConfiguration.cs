@@ -6,6 +6,6 @@ namespace Data.Model.Helper
 {
     public class TenantConfiguration
     {
-
+        public Currency Currency { get; set; }
     }
 }

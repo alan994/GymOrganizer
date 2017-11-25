@@ -9,6 +9,7 @@ namespace Helper.Configuration
         public Data Data { get; set; }
         public RabbitMQ RabbitMQ { get; set; }
         public string WebApplicationUrl { get; set; }
+        public string AuthApplicationUrl { get; set; }
     }
 
     public class Auth

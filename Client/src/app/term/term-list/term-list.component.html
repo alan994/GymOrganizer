@@ -13,8 +13,7 @@
 	</thead>
 	<tbody>
 	  <tr *ngFor="let term of (terms | async)">
-		<td>{{term.id}}</td>
-		<td>{{term.name}}</td>
+		<td>{{term.id}}</td>		
 		<td>{{term.start | date}}</td>
 		<td>{{term.end | date}}</td>
 		<td>{{term.capacity}}</td>

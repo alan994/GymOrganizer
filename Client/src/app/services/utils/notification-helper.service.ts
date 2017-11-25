@@ -8,6 +8,9 @@ import * as CityActions from '../../city/store/city.actions';
 import * as OfficeActions from '../../office/store/office.actions';
 import * as CountryActions from '../../country/store/country.actions';
 import * as TenantActions from '../../tenant/store/tenant.actions';
+import * as TermActions from '../../term/store/term.actions';
+import * as UserActions from '../../user/store/user.actions';
+import * as AccountActions from '../../store/account/account.actions';
 
 @Injectable()
 export class NotificationHelperService {
@@ -50,10 +53,13 @@ export class NotificationHelperService {
 			//#endregion
 			//#region Term
 			case ProcessType.AddTerm:
+				this.store.dispatch(new TermActions.LoadGetTerms());
 				break;
 			case ProcessType.EditTerm:
+				this.store.dispatch(new TermActions.LoadGetTerms());
 				break;
 			case ProcessType.DeleteTerm:
+				this.store.dispatch(new TermActions.LoadGetTerms());
 				break;
 			//#endregion
 			//#region Tenant
@@ -62,6 +68,20 @@ export class NotificationHelperService {
 				break;
 			case ProcessType.EditTenant:
 				this.store.dispatch(new TenantActions.LoadGetTenants());
+				break;
+			//#endregion
+			//#region Users
+			case ProcessType.AddUser:
+				this.store.dispatch(new UserActions.LoadGetUsers());
+				this.store.dispatch(new AccountActions.LoadGetUserProfile());
+				break;
+			case ProcessType.EditUser:
+				this.store.dispatch(new UserActions.LoadGetUsers());
+				this.store.dispatch(new AccountActions.LoadGetUserProfile());
+				break;
+			case ProcessType.DeleteUser:
+				this.store.dispatch(new UserActions.LoadGetUsers());
+				this.store.dispatch(new AccountActions.LoadGetUserProfile());
 				break;
 			//#endregion
 		}

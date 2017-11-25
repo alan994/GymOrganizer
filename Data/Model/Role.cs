@@ -7,5 +7,14 @@ namespace Data.Model
 {
     public class Role : IdentityRole<Guid>
     {
+        public Role()
+        {
+
+        }
+
+        public Role(string name): base(name)
+        {
+
+        }
     }
 }

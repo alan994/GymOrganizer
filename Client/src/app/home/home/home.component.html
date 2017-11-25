@@ -3,13 +3,6 @@
 </p>
 
 <h1>
-	<!-- Hello, {{(account | async).displayName}} -->Bok
+	Hello, {{ (account | async).user.displayName }}
 </h1>
-
-<!-- <button class="btn btn-default" (click)="login()">
-	Login
-</button> -->
-<button class="btn btn-default" (click)="logoff()">
-	Logout
-</button>
-<button class="btn btn-default" (click)="getUserInfo()">Get user info</button>
+<p>{{(account | async) | json}}</p>

@@ -12,9 +12,10 @@ using System;
 namespace Data.Migrations
 {
     [DbContext(typeof(GymOrganizerContext))]
-    partial class GymOrganizerContextModelSnapshot : ModelSnapshot
+    [Migration("20171125102032_v_11")]
+    partial class v_11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,8 +227,6 @@ namespace Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<decimal>("Claimed");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -251,8 +250,6 @@ namespace Data.Migrations
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
-
-                    b.Property<decimal>("Owed");
 
                     b.Property<string>("PasswordHash");
 

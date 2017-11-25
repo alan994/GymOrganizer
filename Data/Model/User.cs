@@ -15,5 +15,7 @@ namespace Data.Model
 
         public virtual Tenant Tenant { get; set; }
         public ExistenceStatus Status { get; set; }
+        public decimal Owed { get; set; }
+        public decimal Claimed { get; set; }
     }
 }

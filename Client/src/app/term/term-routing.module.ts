@@ -4,11 +4,13 @@ import { AuthGuard } from '../services/guards/auth-guard.service';
 import { NavComponent } from '../components/nav/nav.component';
 import { TermListComponent } from './term-list/term-list.component';
 import { TermEditComponent } from './term-edit/term-edit.component';
+import { ApplicationRoleNames } from '../models/config/ApplicationRoleNames';
+import { RoleGuard } from '../services/guards/role-guard.service';
 
 const routes: Routes = [
 	{
-		path: 'offices',
-		canActivate: [AuthGuard],
+		path: 'terms',
+		canActivate: [AuthGuard, RoleGuard],
 		children: [
 			{
 				path: '',
@@ -18,14 +20,16 @@ const routes: Routes = [
 						path: 'add',
 						component: TermEditComponent,
 						data: {
-							isEdit: false
+							isEdit: false,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					},
 					{
 						path: ':termId/edit',
 						component: TermEditComponent,
 						data: {
-							isEdit: true
+							isEdit: true,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					}
 				]
@@ -35,7 +39,10 @@ const routes: Routes = [
 				component: NavComponent,
 				outlet: 'nav'
 			}
-		]
+		],
+		data: {
+			roles: [ApplicationRoleNames.ADMINISTRATOR]
+		}
 	}
 ];
 

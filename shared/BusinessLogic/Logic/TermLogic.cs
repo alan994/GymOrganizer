@@ -37,7 +37,8 @@ namespace BusinessLogic.Logic
                 CoachId = termQueue.CoachId,
                 IntensityLevel = termQueue.IntensityLevel,
                 OfficeId = termQueue.OfficeId,
-                Status = termQueue.Status,
+                Status = termQueue.Status,   
+                Price = termQueue.Price,
                 TenantId = termQueue.TenantId
             };
 
@@ -53,13 +54,14 @@ namespace BusinessLogic.Logic
             await CheckAddEdit(termQueue);
 
             Term term = await this.db.GetTermById(termQueue.TenantId, termQueue.Id.Value).FirstOrDefaultAsync();
-            termQueue.Start = termQueue.Start;
-            termQueue.End = termQueue.End;
-            termQueue.Capacity = termQueue.Capacity;
-            termQueue.CoachId = termQueue.CoachId;
-            termQueue.IntensityLevel = termQueue.IntensityLevel;
-            termQueue.OfficeId = termQueue.OfficeId;
-            termQueue.Status = termQueue.Status;
+            term.Start = termQueue.Start;
+            term.End = termQueue.End;
+            term.Capacity = termQueue.Capacity;
+            term.CoachId = termQueue.CoachId;
+            term.Price = termQueue.Price;
+            term.IntensityLevel = termQueue.IntensityLevel;
+            term.OfficeId = termQueue.OfficeId;
+            term.Status = termQueue.Status;
 
             await this.db.SaveChangesAsync();
             this.logger.LogInformation($"Term '{term.Start.ToString()} - {term.End.ToString()}' with id '{term.Id}' has successfully updated");

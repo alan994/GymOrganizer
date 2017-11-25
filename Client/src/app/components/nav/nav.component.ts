@@ -9,28 +9,28 @@ import * as fromApp from '../../store/app.reducers';
 import { Account } from '../../models/web-api/account';
 
 @Component({
-  selector: 'go-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+	selector: 'go-nav',
+	templateUrl: './nav.component.html',
+	styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
 
-  account: Observable<Account>;
-  constructor(private translate: TranslateService, private oAuthService: OAuthService, private store: Store<fromApp.AppState>) {
-  }
+	account: Observable<Account>;
+	constructor(private translate: TranslateService, private oAuthService: OAuthService, private store: Store<fromApp.AppState>) {
+	}
 
-  ngOnInit() {
-    this.translate.setDefaultLang(this.translate.getBrowserLang());
-    console.log('Initial language set: ', this.translate.getBrowserLang());
-    this.account = this.store.select(s => s.accountState.account);
-  }
+	ngOnInit() {
+		this.translate.setDefaultLang(this.translate.getBrowserLang());
+		console.log('Initial language set: ', this.translate.getBrowserLang());
+		this.account = this.store.select(s => s.accountState.account);
+	}
 
-  public logout() {
-    this.oAuthService.logOut();
-  }
+	public logout() {
+		this.oAuthService.logOut();
+	}
 
-  changeLanguage(key: string) {
-    this.translate.use(key);
-    console.log(`Pomijenjen jezik na ${key}`);
-  }
+	changeLanguage(key: string) {
+		this.translate.use(key);
+		console.log(`Pomijenjen jezik na ${key}`);
+	}
 }

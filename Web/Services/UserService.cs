@@ -30,16 +30,48 @@ namespace Web.Services
 
         public async Task<List<UserVM>> GetAllUsers()
         {
-            return await this.db.GetAllUsers(this.TenantId)
+            List<UserVM> resultList = await this.db.GetAllUsers(this.TenantId)
                 .Select(x => Mapper.Map<UserVM>(x))
                 .ToListAsync();
+
+            await FillRoles(resultList);
+
+            return resultList;
+        }
+
+        private async Task FillRoles(List<UserVM> users)
+        {
+            var userRoles = await this.db.UserRoles.ToListAsync();
+            var applicationRoles = await this.db.Roles.ToListAsync();
+            foreach (var user in users)
+            {
+                var roles = userRoles.Where(x => x.UserId == user.Id).ToList();
+                foreach (var role in applicationRoles)
+                {
+                    if (role.NormalizedName == "ADMINISTRATOR" && roles.FirstOrDefault(x => x.RoleId == role.Id) != null)
+                    {
+                        user.IsAdmin = true;
+                    }
+                    if (role.NormalizedName == "COACH" && roles.FirstOrDefault(x => x.RoleId == role.Id) != null)
+                    {
+                        user.IsCoach = true;
+                    }
+                    if (role.NormalizedName == "GLOBAL_ADMIN" && roles.FirstOrDefault(x => x.RoleId == role.Id) != null)
+                    {
+                        user.IsGlobalAdmin = true;
+                    }
+                }
+            }
         }
 
         public async Task<List<UserVM>> GetAllAcitveUsers()
         {
-            return await this.db.GetAllActiveUsers(this.TenantId)
+            var resultList = await this.db.GetAllActiveUsers(this.TenantId)
                 .Select(x => Mapper.Map<UserVM>(x))
                 .ToListAsync();
+
+            await FillRoles(resultList);
+            return resultList;
         }
 
         public async Task<UserVM> GetUserById(Guid id)

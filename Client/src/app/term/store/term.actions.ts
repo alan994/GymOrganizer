@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 
-import { Account } from '../../models/web-api/account';
 import { Term } from '../../models/web-api/Term';
 
 export const LOAD_GET_TERMS = '[Term] LoadGetTerms';

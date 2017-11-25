@@ -7,17 +7,23 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="(account | async).user.isAdmin">
 				<a class="nav-link" [routerLink]="['/offices']">Offices</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="(account | async).user.isAdmin">
 				<a class="nav-link" [routerLink]="['/cities']">Cities</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="(account | async).user.isAdmin">
 				<a class="nav-link" [routerLink]="['/countries']">Countries</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="(account | async).user.isGlobalAdmin">
 				<a class="nav-link" [routerLink]="['/tenants']">Tenants</a>
+			</li>
+			<li class="nav-item" *ngIf="(account | async).user.isAdmin">
+				<a class="nav-link" [routerLink]="['/terms']">Terms</a>
+			</li>
+			<li class="nav-item" *ngIf="(account | async).user.isAdmin">
+				<a class="nav-link" [routerLink]="['/users']">Users</a>
 			</li>
 		</ul>
 
@@ -29,7 +35,7 @@
 				<a class="nav-link" (click)="changeLanguage('en')">{{'nav_lang_en' | translate}}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link">Hi, {{(account | async).displayName}}</a>
+				<a class="nav-link">Hi, {{(account | async).user.firstName}}</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" (click)="logout()">Logout</a>

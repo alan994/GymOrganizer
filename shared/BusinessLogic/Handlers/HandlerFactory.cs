@@ -3,6 +3,7 @@ using BusinessLogic.Handlers.Country;
 using BusinessLogic.Handlers.Office;
 using BusinessLogic.Handlers.Tenant;
 using BusinessLogic.Handlers.Term;
+using BusinessLogic.Handlers.User;
 using Data.Db;
 using Data.Enums;
 using Helper.Configuration;
@@ -44,6 +45,12 @@ namespace BusinessLogic.Handlers
                     return new AddTenantHandler(db, loggerFactory, settings);
                 case ProcessType.EditTenant:
                     return new EditTenantHandler(db, loggerFactory, settings);
+                case ProcessType.AddUser:
+                    return new AddUserHandler(db, loggerFactory, settings);
+                case ProcessType.EditUser:
+                    return new EditUserHandler(db, loggerFactory, settings);
+                case ProcessType.DeleteUser:
+                    return new DeleteUserHandler(db, loggerFactory, settings);
                 default:
                     return null;
             }

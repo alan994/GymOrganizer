@@ -18,6 +18,7 @@ namespace Data.Model
         public Guid OfficeId { get; set; }
         public IntensityLevel IntensityLevel { get; set; }
         public Guid TenantId { get; set; }
+        public decimal Price { get; set; }
         public virtual Tenant Tenant { get; set; }
         public virtual Office Office { get; set; }
         public ExistenceStatus Status { get; set; }

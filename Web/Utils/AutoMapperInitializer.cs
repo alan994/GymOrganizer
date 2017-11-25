@@ -45,7 +45,15 @@ namespace Web.Utils
                 .ReverseMap();
                 #endregion
 
-                #region Tenant
+                #region Term
+                cfg.CreateMap<TermVM, Term>().ReverseMap();
+                cfg.CreateMap<TermVM, TermQueue>()
+                .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())
+                .ForMember(dest => dest.TenantId, options => options.Ignore())
+                .ReverseMap();
+                #endregion
+
+                #region User
                 cfg.CreateMap<UserVM, User>().ReverseMap();
                 cfg.CreateMap<UserVM, UserQueue>()
                 .ForMember(dest => dest.UserPerformingAction, options => options.Ignore())

@@ -44,7 +44,7 @@ namespace Auth
             var operationCS = this._settings.Data.Auth.OpertationConnectionString;
             var configurationCS = this._settings.Data.Auth.ConfigurationConnectionString;
 
-            services.AddDbContext<GymOrganizerContext>( options => options.UseSqlServer(databaseCS));
+            services.AddDbContext<GymOrganizerContext>(options => options.UseSqlServer(databaseCS));
 
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
@@ -67,7 +67,7 @@ namespace Auth
 
             services.AddIdentityServer()
                 //To be validated
-                .AddDeveloperSigningCredential()                
+                .AddDeveloperSigningCredential()
 
                 .AddConfigurationStore(options =>
                 {
@@ -87,8 +87,7 @@ namespace Auth
                 .AddAspNetIdentity<User>(); //TODO: fix this
 
             services.AddCors();
-
-
+                        
             EnsureSeedData(services);
             EnsureDbCreation(services);
 
@@ -144,7 +143,7 @@ namespace Auth
         {
             var sp = services.BuildServiceProvider();
             using (var scope = sp.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {                
+            {
                 using (var context = scope.ServiceProvider.GetService<ConfigurationDbContext>())
                 {
                     context.Database.Migrate();
@@ -155,6 +154,16 @@ namespace Auth
                 {
                     context.Database.Migrate();
                 }
+            }
+
+
+            var roleManager = sp.GetRequiredService<RoleManager<Role>>();
+            if (roleManager.Roles.Count() == 0)
+            {
+                roleManager.CreateAsync(new Role("Administrator")).GetAwaiter().GetResult();
+                roleManager.CreateAsync(new Role("Coach")).GetAwaiter().GetResult();
+                roleManager.CreateAsync(new Role("Member")).GetAwaiter().GetResult();
+                roleManager.CreateAsync(new Role("Global_admin")).GetAwaiter().GetResult();
             }
         }
 

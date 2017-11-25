@@ -4,12 +4,14 @@ import { NavComponent } from '../components/nav/nav.component';
 import { AuthGuard } from '../services/guards/auth-guard.service';
 import { CountryListComponent } from './country-list/country-list.component';
 import { CountryEditComponent } from './country-edit/country-edit.component';
+import { ApplicationRoleNames } from '../models/config/ApplicationRoleNames';
+import { RoleGuard } from '../services/guards/role-guard.service';
 
 
 const routes: Routes = [
 	{
 		path: 'countries',
-		canActivate: [AuthGuard],
+		canActivate: [AuthGuard, RoleGuard],
 		children: [
 			{
 				path: '',
@@ -19,14 +21,16 @@ const routes: Routes = [
 						path: 'add',
 						component: CountryEditComponent,
 						data: {
-							isEdit: false
+							isEdit: false,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					},
 					{
 						path: ':cityId/edit',
 						component: CountryEditComponent,
 						data: {
-							isEdit: true
+							isEdit: true,
+							roles: [ApplicationRoleNames.ADMINISTRATOR]
 						}
 					}
 				]
@@ -36,7 +40,10 @@ const routes: Routes = [
 				component: NavComponent,
 				outlet: 'nav'
 			},
-		]
+		],
+		data: {
+			roles: [ApplicationRoleNames.ADMINISTRATOR]
+		}
 	}
 ];
 

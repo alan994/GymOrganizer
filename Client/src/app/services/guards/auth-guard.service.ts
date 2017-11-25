@@ -12,24 +12,24 @@ import * as AccountActions from '../../store/account/account.actions';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private oAuthService: OAuthService, private router: Router, private store: Store<fromApp.AppState>, private logger: Logger) { }
+	constructor(private oAuthService: OAuthService, private router: Router, private store: Store<fromApp.AppState>, private logger: Logger) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const isAllowed = this.oAuthService.getIdentityClaims() ? true : false;
-    return this.store.select(s => s.accountState)
-      .map((accountState: fromAccount.State) => {
-        if (!accountState.isAuthenticated || !isAllowed) {
-          this.logger.debug('Odbijeno od strane auth guarda. Korisnik je autenticiran');
-          localStorage.setItem('navigateToRoute', location.pathname);
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		const isAllowed = this.oAuthService.getIdentityClaims() ? true : false;
+		return this.store.select(s => s.accountState)
+			.map((accountState: fromAccount.State) => {
+				if (!accountState.isAuthenticated || !isAllowed) {
+					this.logger.debug('Odbijeno od strane auth guarda. Korisnik je autenticiran');
+					localStorage.setItem('navigateToRoute', location.pathname);
 
-          if (!isAllowed) {
-            this.oAuthService.initImplicitFlow();
-          }
-          else {
-            this.store.dispatch(new AccountActions.LoadGetUserProfile());
-          }
-        }
-        return accountState.isAuthenticated && isAllowed;
-      });
-  }
+					if (!isAllowed) {
+						this.oAuthService.initImplicitFlow();
+					}
+					else {
+						this.store.dispatch(new AccountActions.LoadGetUserProfile());
+					}
+				}
+				return accountState.isAuthenticated && isAllowed;
+			});
+	}
 }

@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import * as UserActions from './user.actions';
 import { Account } from '../../models/web-api/account';
-import { User } from '../../models/web-api/User';
+import { User } from '../../models/web-api/user';
 
 export interface State {
 	users: User[];

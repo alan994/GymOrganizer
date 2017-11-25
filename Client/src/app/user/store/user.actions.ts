@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 
-import { Account } from '../../models/web-api/account';
 import { User } from '../../models/web-api/user';
 
 export const LOAD_GET_USERS = '[User] LoadGetUsers';

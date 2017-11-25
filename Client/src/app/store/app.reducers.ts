@@ -7,6 +7,7 @@ import * as fromCity from '../city/store/city.reducers';
 import * as fromCountry from '../country/store/country.reducers';
 import * as fromTenant from '../tenant/store/tenant.reducers';
 import * as fromTerm from '../term/store/term.reducers';
+import * as fromUser from '../user/store/user.reducers';
 
 export interface AppState {
 	notificationState: fromNotifications.State;
@@ -17,6 +18,7 @@ export interface AppState {
 	countryReducer: fromCountry.State;
 	tenantReducer: fromTenant.State;
 	termReducer: fromTerm.State;
+	userReducer: fromUser.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -27,5 +29,6 @@ export const reducers: ActionReducerMap<AppState> = {
 	cityReducer: fromCity.cityReducer,
 	countryReducer: fromCountry.countryReducer,
 	tenantReducer: fromTenant.tenantReducer,
-	termReducer: fromTerm.TermReducer
+	termReducer: fromTerm.TermReducer,
+	userReducer: fromUser.UserReducer
 };

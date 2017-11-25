@@ -40,10 +40,11 @@ import { CountryModule } from './country/country.module';
 import { CountryService } from './services/web-api/country.service';
 import { TenantModule } from './tenant/tenant.module';
 import { TenantService } from './services/web-api/tenant.service';
-import { UserService } from './services/web-api/User.service';
+import { UserService } from './services/web-api/user.service';
 import { TermService } from './services/web-api/term.service';
 import { TermModule } from './term/term.module';
 import { UserModule } from './user/user.module';
+import { RoleGuard } from './services/guards/role-guard.service';
 
 @NgModule({
 	declarations: [
@@ -81,6 +82,7 @@ import { UserModule } from './user/user.module';
 		AccountService,
 		SignalRService,
 		AuthGuard,
+		RoleGuard,
 		NotificationHelperService,
 		Logger,
 		{ provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },

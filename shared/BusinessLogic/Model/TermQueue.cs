@@ -15,5 +15,6 @@ namespace BusinessLogic.Model
         public Guid OfficeId { get; set; }
         public IntensityLevel IntensityLevel { get; set; }
         public ExistenceStatus Status { get; set; }
+        public decimal Price { get; internal set; }
     }
 }
