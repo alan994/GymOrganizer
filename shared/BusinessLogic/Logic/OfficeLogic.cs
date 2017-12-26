@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logger;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Logic
@@ -41,7 +42,7 @@ namespace BusinessLogic.Logic
             this.db.Offices.Add(office);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"Office '{office.Name}' with id '{office.Id}' has successfully created");
+            this.logger.LogCustomInformation($"Office '{office.Name}' with id '{office.Id}' has successfully created", officeQueue.TenantId.ToString(), officeQueue.UserPerformingAction.ToString());
             return office.Id;
         }
 
@@ -56,7 +57,7 @@ namespace BusinessLogic.Logic
             office.Status = officeQueue.Status;
 
             await this.db.SaveChangesAsync();
-            this.logger.LogInformation($"Office '{office.Name}' with id '{office.Id}' has successfully updated");
+            this.logger.LogCustomInformation($"Office '{office.Name}' with id '{office.Id}' has successfully updated", officeQueue.TenantId.ToString(), officeQueue.UserPerformingAction.ToString());
 
         }
 
@@ -68,7 +69,7 @@ namespace BusinessLogic.Logic
             this.db.Offices.Remove(office);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"Office '{office.Name}' with id '{office.Id}' has successfully deleted");
+            this.logger.LogCustomInformation($"Office '{office.Name}' with id '{office.Id}' has successfully deleted", officeQueue.TenantId.ToString(), officeQueue.UserPerformingAction.ToString());
         }
 
         private async Task CheckAddEdit(OfficeQueue officeQueue)

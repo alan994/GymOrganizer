@@ -2,6 +2,7 @@
 using Helper.Exceptions;
 using Microsoft.Extensions.Logging;
 using System;
+using Logger;
 
 namespace BusinessLogic.Handlers
 {
@@ -14,7 +15,7 @@ namespace BusinessLogic.Handlers
             this.logger = loggerFactory.CreateLogger<HandlerBase>();
         }
 
-        protected void HandleException(Exception exception, QueueResult queueResult)
+        protected void HandleException(Exception exception, QueueResult queueResult, QueueBase queueBase)
         {
             ExceptionCode? code = null;
             if (exception is BusinessException)
@@ -34,8 +35,24 @@ namespace BusinessLogic.Handlers
             }
             queueResult.Status = Status.Fail;
 
-            //TODO: log exception, code, tenantId, userId
-            this.logger.LogError($"Failed to execute action");
+            #region Helper
+            int? intCode = null;
+            if (code.HasValue)
+            {
+                intCode = (int)code.Value;
+            }
+
+            string tenantId = null;
+            string userId = null;
+
+            if(queueBase != null)
+            {
+                tenantId = queueBase.TenantId.ToString();
+                userId= queueBase.UserPerformingAction.ToString();
+            }
+            #endregion
+
+            this.logger.LogCustomError($"Failed to execute action", exception, intCode, tenantId, userId);
         }
     }
 }

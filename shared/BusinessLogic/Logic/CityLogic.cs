@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logger;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Logic
@@ -40,7 +41,7 @@ namespace BusinessLogic.Logic
             this.db.Cities.Add(city);
             await this.db.SaveChangesAsync();
             
-            this.logger.LogInformation($"City '{city.Name}' with id '{city.Id}' has successfully created");
+            this.logger.LogCustomInformation($"City '{city.Name}' with id '{city.Id}' has successfully created", cityQueue.TenantId.ToString(), cityQueue.UserPerformingAction.ToString());
             return city.Id;
         }
 
@@ -55,7 +56,7 @@ namespace BusinessLogic.Logic
             city.Status = cityQueue.Status;
 
             await this.db.SaveChangesAsync();
-            this.logger.LogInformation($"City '{city.Name}' with id '{city.Id}' has successfully updated");
+            this.logger.LogCustomInformation($"City '{city.Name}' with id '{city.Id}' has successfully updated", cityQueue.TenantId.ToString(), cityQueue.UserPerformingAction.ToString());
 
         }
 
@@ -68,7 +69,7 @@ namespace BusinessLogic.Logic
             this.db.Cities.Remove(city);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"City '{city.Name}' with id '{city.Id}' has successfully deleted");
+            this.logger.LogCustomInformation($"City '{city.Name}' with id '{city.Id}' has successfully deleted", cityQueue.TenantId.ToString(), cityQueue.UserPerformingAction.ToString());
         }
 
         private async Task CheckAddEdit(CityQueue cityQueue)

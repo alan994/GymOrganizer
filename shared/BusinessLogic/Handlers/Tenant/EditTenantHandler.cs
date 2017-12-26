@@ -33,9 +33,10 @@ namespace BusinessLogic.Handlers.Tenant
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
+            TenantQueue tenantQueue = null;
             try
             {
-                TenantQueue tenantQueue = JsonConvert.DeserializeObject<TenantQueue>(data);
+                tenantQueue = JsonConvert.DeserializeObject<TenantQueue>(data);
                 TenantLogic tenantLogic = new TenantLogic(this.db, result.AdditionalData, this.loggerFactory);
                 await tenantLogic.EditTenant(tenantQueue);
 
@@ -46,7 +47,7 @@ namespace BusinessLogic.Handlers.Tenant
             }
             catch (Exception ex)
             {
-                HandleException(ex, result);
+                HandleException(ex, result, tenantQueue);
             }
             return result;
         }

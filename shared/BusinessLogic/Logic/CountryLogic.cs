@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using Logger;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,7 +43,7 @@ namespace BusinessLogic.Logic
             this.db.Countries.Add(country);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"County '{country.Name}' with id '{country.Id}' has successfully created");
+            this.logger.LogCustomInformation($"County '{country.Name}' with id '{country.Id}' has successfully created", countryQueue.TenantId.ToString(), countryQueue.UserPerformingAction.ToString());
             return country.Id;
         }
 
@@ -58,7 +59,7 @@ namespace BusinessLogic.Logic
             country.Status = countryQueue.Status;
 
             await this.db.SaveChangesAsync();
-            this.logger.LogInformation($"Country '{country.Name}' with id '{country.Id}' has successfully updated");
+            this.logger.LogCustomInformation($"Country '{country.Name}' with id '{country.Id}' has successfully updated", countryQueue.TenantId.ToString(), countryQueue.UserPerformingAction.ToString());
 
         }
 
@@ -71,7 +72,7 @@ namespace BusinessLogic.Logic
             this.db.Countries.Remove(country);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"Country '{country.Name}' with id '{country.Id}' has successfully deleted");
+            this.logger.LogCustomInformation($"Country '{country.Name}' with id '{country.Id}' has successfully deleted", countryQueue.TenantId.ToString(), countryQueue.UserPerformingAction.ToString());
         }
 
         private async Task CheckAddEdit(CountryQueue countryQueue)

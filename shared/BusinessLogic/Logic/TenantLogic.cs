@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logger;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Logic
@@ -37,7 +38,7 @@ namespace BusinessLogic.Logic
             this.db.Tenants.Add(tenant);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"Tenant '{tenant.Name}' with id '{tenant.Id}' has successfully created");
+            this.logger.LogCustomInformation($"Tenant '{tenant.Name}' with id '{tenant.Id}' has successfully created", tenantQueue.TenantId.ToString(), tenantQueue.UserPerformingAction.ToString());
             return tenant.Id;
         }
 
@@ -50,7 +51,7 @@ namespace BusinessLogic.Logic
             tenant.Status = tenantQueue.Status;
 
             await this.db.SaveChangesAsync();
-            this.logger.LogInformation($"Tenant '{tenant.Name}' with id '{tenant.Id}' has successfully updated");
+            this.logger.LogCustomInformation($"Tenant '{tenant.Name}' with id '{tenant.Id}' has successfully updated", tenantQueue.TenantId.ToString(), tenantQueue.UserPerformingAction.ToString());
 
         }
                 

@@ -33,9 +33,10 @@ namespace BusinessLogic.Handlers.City
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
+            CityQueue cityQueue = null;
             try
             {                
-                CityQueue cityQueue = JsonConvert.DeserializeObject<CityQueue>(data);
+                cityQueue = JsonConvert.DeserializeObject<CityQueue>(data);
                 CityLogic cityLogic = new CityLogic(this.db, result.AdditionalData, this.loggerFactory);
                 var cityId = await cityLogic.AddCity(cityQueue);
 
@@ -46,7 +47,7 @@ namespace BusinessLogic.Handlers.City
             }
             catch(Exception ex)
             {
-                HandleException(ex, result);
+                HandleException(ex, result, cityQueue);
             }
             return result;
         }

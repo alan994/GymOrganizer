@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{0C686CA4-6913-4FBF-B072-9C4E5390F490}"
 EndProject
@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "shared\Logger\Logger.csproj", "{D0F07575-8B63-4E6D-8521-502169CBC84A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,10 @@ Global
 		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0F07575-8B63-4E6D-8521-502169CBC84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0F07575-8B63-4E6D-8521-502169CBC84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0F07575-8B63-4E6D-8521-502169CBC84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0F07575-8B63-4E6D-8521-502169CBC84A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{DE104C79-FEF6-4D43-BCD8-FA9BADB48721} = {D77C7327-664A-425A-B6C1-ADEB32C02E52}
 		{2FD0C7D1-155A-43C9-A5CE-4FBE86402797} = {63EE7723-B4ED-4FD9-B474-875BD6EE86A8}
 		{8D76103B-5C2F-47DA-8BBC-81D4DE4C381B} = {D77C7327-664A-425A-B6C1-ADEB32C02E52}
+		{D0F07575-8B63-4E6D-8521-502169CBC84A} = {D77C7327-664A-425A-B6C1-ADEB32C02E52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8DFDE9AA-51A6-44D8-94CA-BDD922F3E461}

@@ -33,9 +33,10 @@ namespace BusinessLogic.Handlers.User
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
+            UserQueue userQueue = null;
             try
             {
-                UserQueue userQueue = JsonConvert.DeserializeObject<UserQueue>(data);
+                userQueue = JsonConvert.DeserializeObject<UserQueue>(data);
                 UserLogic userLogic = new UserLogic(this.db, result.AdditionalData, this.loggerFactory, this.settings);
                 await userLogic.EditUser(userQueue);
 
@@ -47,7 +48,7 @@ namespace BusinessLogic.Handlers.User
             }
             catch (Exception ex)
             {
-                HandleException(ex, result);
+                HandleException(ex, result, userQueue);
             }
             return result;
         }

@@ -14,6 +14,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Logger;
 
 namespace BusinessLogic.Logic
 {
@@ -46,7 +47,7 @@ namespace BusinessLogic.Logic
                     {
                         var responseStr = await httpResponse.Content.ReadAsStringAsync();
                         var id = Guid.Parse(responseStr.Replace('"', ' ').Trim());
-                        this.logger.LogInformation($"User '{userQueue.FirstName} {userQueue.LastName}' - '{userQueue.Email}' with id '{id}' has successfully created");
+                        this.logger.LogCustomInformation($"User '{userQueue.FirstName} {userQueue.LastName}' - '{userQueue.Email}' with id '{id}' has successfully created", userQueue.TenantId.ToString(), userQueue.UserPerformingAction.ToString());
                         return id;
                     }
                     else
@@ -154,7 +155,7 @@ namespace BusinessLogic.Logic
 
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"User '{user.FirstName} {user.LastName}' - '{user.Email}' with id '{user.Id}' has successfully created");
+            this.logger.LogCustomInformation($"User '{user.FirstName} {user.LastName}' - '{user.Email}' with id '{user.Id}' has successfully created", userQueue.TenantId.ToString(), userQueue.UserPerformingAction.ToString());
         }
 
         public async Task DeleteUser(UserQueue userQueue)
@@ -164,7 +165,7 @@ namespace BusinessLogic.Logic
 
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"User '{user.FirstName} {user.LastName}' - '{user.Email}' with id '{user.Id}' has successfully deleted");
+            this.logger.LogCustomInformation($"User '{user.FirstName} {user.LastName}' - '{user.Email}' with id '{user.Id}' has successfully deleted", userQueue.TenantId.ToString(), userQueue.UserPerformingAction.ToString());
         }
     }
 }
