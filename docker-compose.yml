@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    image: web
+    build:
+      context: .
+      dockerfile: Web\Dockerfile
+
+  auth:
+    image: auth
+    build:
+      context: .
+      dockerfile: Auth\Dockerfile
+
+
+  rabbitmq:
+    image: rabbitmq
+    build:
+      context: .
+      dockerfile: services\RabbitMQ\Dockerfile
+
