@@ -22,3 +22,10 @@ CREATE TABLE [dbo].[Logs](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
+
+create proc GetLogs
+@tenantId nvarchar(200)
+as
+begin
+select top 200 ID, Message, TimeStamp, Level, Exception, ErrorCode, Tenant, UserId from Logs where @tenantId is null or @tenantId = Tenant order by ID desc
+end

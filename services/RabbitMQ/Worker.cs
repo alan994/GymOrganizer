@@ -139,6 +139,7 @@ namespace RabbitMQ
                     Ack(channel, deliveryTag);
 
                     request.FinishedAt = DateTime.UtcNow;
+                    request.Status = Data.Enums.ResultStatus.Ok;
                     await db.SaveChangesAsync();
                 }
             }

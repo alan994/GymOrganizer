@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "shared\Logger\Logger.csproj", "{D0F07575-8B63-4E6D-8521-502169CBC84A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthAnalyzer", "HealthAnalyzer\HealthAnalyzer.csproj", "{01FB8380-92C7-4C98-98FF-07CD378556E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{D0F07575-8B63-4E6D-8521-502169CBC84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0F07575-8B63-4E6D-8521-502169CBC84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0F07575-8B63-4E6D-8521-502169CBC84A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01FB8380-92C7-4C98-98FF-07CD378556E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01FB8380-92C7-4C98-98FF-07CD378556E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01FB8380-92C7-4C98-98FF-07CD378556E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01FB8380-92C7-4C98-98FF-07CD378556E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,6 +22,7 @@ namespace Data.Enums
         EditTenant = 14,
         AddUser = 15,
         EditUser = 16,
-        DeleteUser = 17
+        DeleteUser = 17,
+        HealthCheck = 18
     }
 }
