@@ -4,15 +4,30 @@ services:
   web:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - USER_SECRETS_ID=0a367ea5-b8ca-44d5-9d4a-e94437f2a586
     ports:
       - "80"
+    volumes:
+      - $APPDATA/Microsoft/UserSecrets/$USER_SECRETS_ID:/$APPDATA/microsoft/UserSecrets/$USER_SECRETS_ID
   auth:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - USER_SECRETS_ID=0a367ea5-b8ca-44d5-9d4a-e94437f2a586
     ports:
       - "80"
+    volumes:
+      - $APPDATA/Microsoft/UserSecrets/$USER_SECRETS_ID:/$APPDATA/microsoft/UserSecrets/$USER_SECRETS_ID
+  healthanalyzer:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - USER_SECRETS_ID=0a367ea5-b8ca-44d5-9d4a-e94437f2a586
+    ports:
+      - "80"
+    volumes:
+      - $APPDATA/Microsoft/UserSecrets/$USER_SECRETS_ID:/$APPDATA/microsoft/UserSecrets/$USER_SECRETS_ID
 networks:
   default:
     external:
       name: nat
+
 
