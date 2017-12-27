@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Helper.Configuration;
@@ -17,6 +12,8 @@ using Utils.Queue;
 using Microsoft.Extensions.Options;
 using IdentityServer4.AccessTokenValidation;
 using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Logging;
+using Logger;
 
 namespace Web
 {
@@ -63,9 +60,9 @@ namespace Web
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(TokenDataActionFilter));
-                options.Filters.Add(typeof(ExceptionFilter));                
+                options.Filters.Add(typeof(ExceptionFilter));
             })
-            .AddJsonOptions(options => 
+            .AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
@@ -80,8 +77,15 @@ namespace Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, AppSettings appSettings)
         {
+            loggerFactory.AddDatabase(new DatabaseLoggerSettings()
+            {
+                ConnectionString = appSettings.Data.Logs.ConnectionString,
+                MinimumLogLevel = (LogLevel)appSettings.Data.Logs.MinimumLogLevel,
+                TableName = "Logs"
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -8,8 +8,8 @@ namespace BusinessLogic.Model
 {
     public class QueueResult
     {
-        public Guid UserId { get; set; }
-        public Guid TenantId { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? TenantId { get; set; }
         public Status Status { get; set; }
         public Guid RequestOueueId { get; set; }
         public ExceptionCode? ExceptionCode { get; set; }

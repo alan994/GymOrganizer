@@ -33,9 +33,11 @@ namespace BusinessLogic.Handlers.Country
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
+
+            CountryQueue countryQueue = null;
             try
             {
-                CountryQueue countryQueue = JsonConvert.DeserializeObject<CountryQueue>(data);
+                countryQueue = JsonConvert.DeserializeObject<CountryQueue>(data);
                 CountryLogic countryLogic = new CountryLogic(this.db, result.AdditionalData, this.loggerFactory);
                 var countryId = await countryLogic.AddCountry(countryQueue);
 
@@ -46,7 +48,7 @@ namespace BusinessLogic.Handlers.Country
             }
             catch (Exception ex)
             {
-                HandleException(ex, result);
+                HandleException(ex, result, countryQueue);
             }
             return result;
         }

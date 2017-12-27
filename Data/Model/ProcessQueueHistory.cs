@@ -11,9 +11,9 @@ namespace Data.Model
         public string Data { get; set; }
         public DateTime AddedToQueue { get; set; }
         public DateTime? FinishedAt { get; set; }
-        public Guid AddedById { get; set; }
+        public Guid? AddedById { get; set; }
         public string ErrorMesage { get; set; }
-        public Guid TenantId { get; set; }
+        public Guid? TenantId { get; set; }
         public virtual Tenant Tenant { get; set; }
         public virtual User AddedBy { get; set; }
         public ResultStatus Status { get; set; }

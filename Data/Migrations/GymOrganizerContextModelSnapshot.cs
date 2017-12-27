@@ -116,7 +116,7 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("newsequentialid()");
 
-                    b.Property<Guid>("AddedById");
+                    b.Property<Guid?>("AddedById");
 
                     b.Property<DateTime>("AddedToQueue");
 
@@ -128,7 +128,7 @@ namespace Data.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<Guid>("TenantId");
+                    b.Property<Guid?>("TenantId");
 
                     b.Property<int>("Type");
 

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Logger;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Logic
@@ -45,7 +45,7 @@ namespace BusinessLogic.Logic
             this.db.Terms.Add(term);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"Term '{term.Start.ToString()} - {term.End.ToString()}' with id '{term.Id}' has successfully created");
+            this.logger.LogCustomInformation($"Term '{term.Start.ToString()} - {term.End.ToString()}' with id '{term.Id}' has successfully created", termQueue.TenantId.ToString(), termQueue.UserPerformingAction.ToString());
             return term.Id;
         }
 
@@ -64,7 +64,7 @@ namespace BusinessLogic.Logic
             term.Status = termQueue.Status;
 
             await this.db.SaveChangesAsync();
-            this.logger.LogInformation($"Term '{term.Start.ToString()} - {term.End.ToString()}' with id '{term.Id}' has successfully updated");
+            this.logger.LogCustomInformation($"Term '{term.Start.ToString()} - {term.End.ToString()}' with id '{term.Id}' has successfully updated", termQueue.TenantId.ToString(), termQueue.UserPerformingAction.ToString());
 
         }
 
@@ -75,7 +75,7 @@ namespace BusinessLogic.Logic
             this.db.Terms.Remove(term);
             await this.db.SaveChangesAsync();
 
-            this.logger.LogInformation($"Term '{term.Start.ToString()} - {term.End.ToString()}' with id '{term.Id}' has successfully deleted");
+            this.logger.LogCustomInformation($"Term '{term.Start.ToString()} - {term.End.ToString()}' with id '{term.Id}' has successfully deleted", termQueue.TenantId.ToString(), termQueue.UserPerformingAction.ToString());
         }
 
         private async Task CheckAddEdit(TermQueue termQueue)

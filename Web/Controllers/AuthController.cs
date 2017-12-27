@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Utils;
 
 namespace Web.Controllers
 {
@@ -21,20 +22,7 @@ namespace Web.Controllers
         {
             get
             {
-                if (this.User.Identity.IsAuthenticated)
-                {
-                    var userId = this.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-                    if (!string.IsNullOrEmpty(userId))
-                    {
-                        var userIdGuid = Guid.Parse(userId);
-                        var user = this.db.Users.FirstOrDefault(x => x.Id == userIdGuid);
-                        if (user != null)
-                        {
-                            return user.TenantId;
-                        }
-                    }
-                }
-                return Guid.Empty;
+                return TokenHelper.ExtractTenantFromToken(this.User, this.db);
             }
         }
 
@@ -42,18 +30,8 @@ namespace Web.Controllers
         {
             get
             {
-                if (this.User.Identity.IsAuthenticated)
-                {
-                    var userId = this.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-                    if (!string.IsNullOrEmpty(userId))
-                    {
-                        return Guid.Parse(userId);
-                    }
-                }
-                return Guid.Empty;
+                return TokenHelper.ExtractUserFromToken(this.User, this.db);
             }
         }
-
-
     }
 }

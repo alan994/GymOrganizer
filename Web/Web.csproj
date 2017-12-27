@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\shared\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\shared\Helper\Helper.csproj" />
+    <ProjectReference Include="..\shared\Logger\Logger.csproj" />
     <ProjectReference Include="..\shared\Utils\Utils.csproj" />
   </ItemGroup>
 

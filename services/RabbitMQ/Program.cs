@@ -1,4 +1,5 @@
 ﻿using Helper.Configuration;
+using Logger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,15 +28,22 @@ namespace RabbitMQ
             var connectionStringLog = appSettings.Data.Model.ConnectionString;
 
 
-            serviceProvider.GetService<ILoggerFactory>().AddConsole();
+            serviceProvider.GetService<ILoggerFactory>()
+                .AddConsole()
+                .AddDatabase(new DatabaseLoggerSettings()
+                {
+                    ConnectionString = appSettings.Data.Logs.ConnectionString,
+                    MinimumLogLevel = (LogLevel)appSettings.Data.Logs.MinimumLogLevel,
+                    TableName = "Logs"
+                });
 
             ILogger<Program> logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger<Program>();
 
             logger.LogInformation($"Application is started with args: {JsonConvert.SerializeObject(args)}");
 
-                        
+
             int minimumLogLevel = appSettings.Data.Logs.MinimumLogLevel;
-                        
+
             Worker worker = new Worker(appSettings, serviceProvider.GetService<ILoggerFactory>());
             worker.Start(args);
 

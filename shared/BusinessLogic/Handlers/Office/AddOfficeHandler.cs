@@ -32,9 +32,10 @@ namespace BusinessLogic.Handlers.Office
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
+            OfficeQueue officeQueue = null;
             try
             {
-                OfficeQueue officeQueue = JsonConvert.DeserializeObject<OfficeQueue>(data);
+                officeQueue = JsonConvert.DeserializeObject<OfficeQueue>(data);
                 OfficeLogic officeLogic = new OfficeLogic(this.db, result.AdditionalData, this.loggerFactory);
                 var officeId = await officeLogic.AddOffice(officeQueue);
 
@@ -45,7 +46,7 @@ namespace BusinessLogic.Handlers.Office
             }
             catch (Exception ex)
             {
-                HandleException(ex, result);
+                HandleException(ex, result, officeQueue);
             }
             return result;
         }

@@ -33,9 +33,10 @@ namespace BusinessLogic.Handlers.Term
             {
                 result.ExceptionCode = ExceptionCode.MissingQueueData;
             }
+            TermQueue termQueue = null;
             try
             {
-                TermQueue termQueue = JsonConvert.DeserializeObject<TermQueue>(data);
+                termQueue = JsonConvert.DeserializeObject<TermQueue>(data);
                 TermLogic termLogic = new TermLogic(this.db, result.AdditionalData, this.loggerFactory);
                 await termLogic.DeleteTerm(termQueue);
 
@@ -47,7 +48,7 @@ namespace BusinessLogic.Handlers.Term
             }
             catch (Exception ex)
             {
-                HandleException(ex, result);
+                HandleException(ex, result, termQueue);
             }
             return result;
         }
